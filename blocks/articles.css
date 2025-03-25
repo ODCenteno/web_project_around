@@ -1,0 +1,11 @@
+.articles {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 282px);
+  grid-auto-rows: auto;
+  gap: 20px;
+}
+
+.articles__card {
+
+}

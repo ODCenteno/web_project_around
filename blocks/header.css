@@ -1,0 +1,19 @@
+.header {
+  padding-top: 40px;
+}
+
+.header__logo-container {
+  max-width: 173px;
+}
+
+.header__logo {
+
+}
+
+.header__divisor {
+  margin: 40px 0;
+}
+
+.header__nav {
+  margin-bottom: 50px;
+}
