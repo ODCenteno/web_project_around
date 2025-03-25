@@ -44,7 +44,16 @@
   font-size: 18px;
 }
 
-.nav__button_add {
+.nav__button-edit {
+  width: 24px;
+  height: 24px;
+  border: none;
+  cursor: pointer;
+  background-color: black;
+  background-image: url(../images/edit-button.svg);
+}
+
+.nav__button-add {
   margin-left: auto;
   width: 150px;
   height: 50px;

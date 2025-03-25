@@ -47,3 +47,7 @@
   width: 100%;
   color: black;
 }
+
+.popup_hidden {
+  display: none;
+}
