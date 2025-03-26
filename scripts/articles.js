@@ -4,6 +4,7 @@ let articlesContent = [
     imageUrl: "/images/yosemite.webp",
     imageAlt: "Example of alternative description",
     iconUrl: "/images/heart.svg",
+    likedIconUrl: "/images/heart-liked.svg",
     isLiked: false,
   },
   {
@@ -11,6 +12,7 @@ let articlesContent = [
     imageUrl: "/images/yosemite.webp",
     imageAlt: "Example of alternative description",
     iconUrl: "/images/heart.svg",
+    likedIconUrl: "/images/heart-liked.svg",
     isLiked: false,
   },
   {
@@ -18,6 +20,7 @@ let articlesContent = [
     imageUrl: "/images/yosemite.webp",
     imageAlt: "Example of alternative description",
     iconUrl: "/images/heart.svg",
+    likedIconUrl: "/images/heart-liked.svg",
     isLiked: false,
   },
   {
@@ -25,6 +28,7 @@ let articlesContent = [
     imageUrl: "/images/yosemite.webp",
     imageAlt: "Example of alternative description",
     iconUrl: "/images/heart.svg",
+    likedIconUrl: "/images/heart-liked.svg",
     isLiked: false,
   },
 ];
@@ -37,8 +41,8 @@ const baseArticleHTML = (article) => {
     </picture>
     <div class="card__place-info">
       <h3 class="card__place-title">${article.articleTitle}</h3>
-      <div class="card__icon-container" id="like-icon">
-        <img src="${article.iconUrl}" alt="like icon" class="card__like-icon">
+      <div class="card__icon-container">
+        <img src="${article.iconUrl}" alt="like icon" data-isLiked=${article.isLiked} class="card__like-icon">
       </div>
     </div>
   </article>
@@ -49,4 +53,20 @@ const articles = document.querySelector("#articles");
 
 articlesContent.forEach((article) => {
   articles.insertAdjacentHTML("beforeend", baseArticleHTML(article));
+});
+
+articles.addEventListener("click", (event) => {
+  const iconClicked = event.target;
+  const isLikedIcon = "true" === iconClicked.getAttribute("data-isliked");
+  console.log(isLikedIcon);
+
+  if (isLikedIcon) {
+    iconClicked.setAttribute("src", "./images/heart.svg");
+    iconClicked.setAttribute("data-isLiked", "false");
+    console.log("Turning off", iconClicked);
+  } else {
+    iconClicked.setAttribute("src", "./images/heart-liked.svg");
+    iconClicked.setAttribute("data-isLiked", "true");
+    console.log("Turning on", iconClicked);
+  }
 });
