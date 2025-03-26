@@ -48,36 +48,25 @@
         <div class="nav__container">
           <h1 class="nav__name">
             Omar Centeno
-            <button class="nav__button-edit" id="button-edit"></button>
+            <button class="button nav__button-edit" id="button-edit"></button>
           </h1>
           <p class="nav__job-title">Viajero</p>
         </div>
-        <button type="button" class="button nav__button-add">+</button>
+        <button type="button" class="button nav__button-add"></button>
       </nav>
     </header>
 
     <main class="main">
-      <section class="articles">
-        <article class="card articles__card">
-          <picture class="card__picture">
-            <img src="/images/yosemite.webp" alt="" class="card__image">
-          </picture>
-          <div class="card__place-info">
-            <h3 class="card__place-title">Valle de Yosemite</h3>
-            <div class="card__icon-container" id="like-icon">
-              <img src="/images/heart.svg" alt="heart icon" class="card__like-icon">
-            </div>
-          </div>
-        </article>
+      <section id="articles" class="articles">
       </section>
       <aside class="popup">
         <form id="form-profile" class="popup__container" action="/" method="post">
-          <button type="reset" class="popup__button popup__button_close" id="popup-button-close"></button>
+          <button type="reset" class="button popup__button-close" id="popup-button-close"></button>
           <h2 class="popup__title">Editar perfil</h2>
           <input type="text" class="popup__input" id="form-name" name="name" placeholder="Nombre" required>
           <input type="text" class="popup__input" id="form-description" name="description" placeholder="Acerca de mí"
             required>
-          <button type="submit" class="popup__button" id="popup-button-submit">Guardar</button>
+          <button type="submit" class="button popup__button-submit" id="popup-button-submit">Guardar</button>
         </form>
       </aside>
     </main>
@@ -86,7 +75,8 @@
     </footer>
   </div>
   <script src="/scripts/index.js"></script>
-  <script src="/blocks/popup.js"></script>
+  <script src="/scripts/popup.js"></script>
+  <script src="/scripts/articles.js"></script>
 </body>
 
 </html>

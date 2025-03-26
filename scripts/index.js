@@ -1,5 +1,5 @@
-const editButton = document.querySelector("#button-edit");
 const popup = document.querySelector(".popup");
+const editButton = document.querySelector("#button-edit");
 const formDetailsResetBtn = document.querySelector("#popup-button-close");
 const formInputName = document.querySelector("#form-name");
 const formInputDescription = document.querySelector("#form-description");
@@ -10,5 +10,9 @@ editButton.addEventListener("click", (e) => {
 });
 
 formDetailsResetBtn.addEventListener("click", (e) => {
-  popup.classList.add("popup_hidden");
+  try {
+    popup.classList.add("popup_hidden");
+  } catch (e) {
+    console.error(e);
+  }
 });

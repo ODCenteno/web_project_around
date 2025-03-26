@@ -22,10 +22,6 @@
   border-radius: 50%;
 }
 
-.nav__container {
-
-}
-
 .nav__name {
   font-weight: 500;
   font-size: 42px;
@@ -34,7 +30,7 @@
 }
 
 .nav__name::after {
-  margin-left: 18px;
+  margin: 0 18px;
   width: 18px;
   height: 18px;
   background-image: url(../images/edit-button.svg);
@@ -47,9 +43,6 @@
 .nav__button-edit {
   width: 24px;
   height: 24px;
-  border: none;
-  cursor: pointer;
-  background-color: black;
   background-image: url(../images/edit-button.svg);
 }
 
@@ -57,7 +50,52 @@
   margin-left: auto;
   width: 150px;
   height: 50px;
-  border-color: white;
-  color: white;
-  background-color: black;
+  border: 2px solid white;
+  background-image: url(/images/add_icon.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/*
+TODO: button states hover
+TODO: Media Queries
+*/
+
+@media screen and (max-width: 879px) {
+  .nav {
+    padding: 0 24px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .nav__name {
+    font-size: 36px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .nav {
+    height: auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 36px;
+  }
+
+  .nav__avatar-position {
+    margin: 0;
+  }
+
+  .nav__container {
+    text-align: center;
+  }
+  .nav__name {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .nav__button-add {
+    width: 100%;
+  }
 }

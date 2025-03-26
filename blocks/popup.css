@@ -3,6 +3,11 @@
   height: 100dvh;
   display: grid;
   place-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  background-color: hsla(0, 0%, 0%, 0.6);
 }
 
 .popup__container {
@@ -17,16 +22,7 @@
   justify-content: space-between;
 }
 
-.popup__button {
-  width: 100%;
-  height: 50px;
-  background-color: black;
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-.popup__button_close {
+.popup__button-close {
   position: absolute;
   padding: 0;
   top: -40px;
@@ -34,7 +30,7 @@
   width: 40px;
   height: 40px;
   background-image: url(../images/close.svg);
-  border: none;
+  background-color: transparent;
 }
 
 .popup__title {
@@ -48,6 +44,32 @@
   color: black;
 }
 
+.popup__button-submit {
+  width: 100%;
+  height: 50px;
+}
+
 .popup_hidden {
   display: none;
+}
+
+/*
+TODO: button states hover
+TODO: Media Queries
+TODO: input validations
+TODO: Inputs grouping and position
+TODO: Submit button logic
+TODO: Change position to Fixed
+*/
+
+@media screen and (max-width: 480px) {
+  .popup__container {
+    max-width: 282px;
+    padding: 24px 22px;
+  }
+
+  .popup__button-close {
+    top: -52px;
+    right: 0px;
+  }
 }

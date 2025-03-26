@@ -17,3 +17,26 @@
 .header__nav {
   margin-bottom: 50px;
 }
+
+/*
+TODO: Media Queries
+*/
+
+@media screen and (max-width: 879px) {
+  .header {
+    padding: 24px 24px 0;
+  }
+
+  .header__divisor {
+    margin: 32px 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .header {
+    padding-top: 28px;
+  }
+  .header__nav {
+    padding: 0;
+  }
+}
