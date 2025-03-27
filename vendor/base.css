@@ -11,7 +11,7 @@ html {
   font-family: Inter, sans-serif;
 }
 
-/* a {
+a {
   text-decoration: none;
 }
 
@@ -20,7 +20,7 @@ a:link {
 }
 
 a:visited {
-  color: #838383;
+  color: #c4c4c4;
 }
 
 a:focus {
@@ -29,9 +29,10 @@ a:focus {
 
 a:hover {
   color: #2F80ED;
+  cursor: pointer;
 }
 
 a:active {
   color: #2F80ED;
   font-weight: 500;
-} */
+}

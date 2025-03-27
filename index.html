@@ -62,18 +62,22 @@
       <section id="articles" class="articles">
       </section>
       <aside class="popup">
-        <form id="form-profile" class="popup__container" action="/" method="post">
+        <form id="form-profile" class="popup__container" name="edit-form" action="/" method="post">
           <button type="reset" class="button popup__button-close" id="popup-button-close"></button>
           <h2 class="popup__title">Editar perfil</h2>
-          <input type="text" class="popup__input" id="form-name" name="name" placeholder="Nombre" required>
-          <input type="text" class="popup__input" id="form-description" name="description" placeholder="Acerca de mí"
-            required>
-          <button type="submit" class="button popup__button-submit" id="popup-button-submit">Guardar</button>
+          <fieldset class="popup__fields">
+            <input type="text" class="popup__input" id="form-name" name="edit-name" placeholder="Nombre" minlength="2"
+              required>
+            <input type="text" class="popup__input" id="form-description" name="edit-description" minlength="2"
+              placeholder="Acerca de mí" required>
+          </fieldset>
+          <button type="submit" class="button popup__button-submit" id="popup-button-submit" disabled>Guardar</button>
         </form>
       </aside>
     </main>
     <footer class="footer">
-      <p class="footer__copy">&copy; 2025 Around The World by <a href="http://odcenteno.com">ODCenteno</a></p>
+      <p class="footer__copy">&copy; 2025 Around The World by <a href="http://odcenteno.com"
+          target="_blank">ODCenteno</a></p>
     </footer>
   </div>
   <script src="/scripts/index.js"></script>

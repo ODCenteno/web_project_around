@@ -63,10 +63,8 @@ articles.addEventListener("click", (event) => {
   if (isLikedIcon) {
     iconClicked.setAttribute("src", "./images/heart.svg");
     iconClicked.setAttribute("data-isLiked", "false");
-    console.log("Turning off", iconClicked);
   } else {
     iconClicked.setAttribute("src", "./images/heart-liked.svg");
     iconClicked.setAttribute("data-isLiked", "true");
-    console.log("Turning on", iconClicked);
   }
 });

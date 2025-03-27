@@ -63,11 +63,6 @@
   background-position: center;
 }
 
-/*
-TODO: button states hover
-TODO: Media Queries
-*/
-
 @media screen and (max-width: 879px) {
   .nav {
     padding: 0 24px;

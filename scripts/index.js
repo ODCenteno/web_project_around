@@ -4,7 +4,7 @@ const form = document.querySelector("#form-profile");
 const formDetailsResetBtn = document.querySelector("#popup-button-close");
 const formInputName = document.querySelector("#form-name");
 const formInputDescription = document.querySelector("#form-description");
-const formDetailsSubmitBtn = document.querySelector("#popup-button-close");
+const formDetailsSubmitBtn = document.querySelector("#popup-button-submit");
 
 const navName = document.querySelector(".nav__name");
 const navDescription = document.querySelector(".nav__job-title");
@@ -21,25 +21,31 @@ function toggleModal() {
 }
 
 function saveDetails(details) {
-  console.log(`Form Details: ${details}`);
-  details.name ? sessionStorage.setItem("name", details.name) : "";
+  details.name ? localStorage.setItem("name", details.name) : "";
 
-  details.description ? sessionStorage.setItem("description", details.description) : "";
+  details.description ? localStorage.setItem("description", details.description) : "";
 }
 
 function updateDetails() {
-  const name = sessionStorage.getItem("name");
-  const description = sessionStorage.getItem("description");
+  const savedName = localStorage.getItem("name");
+  const savedDescription = localStorage.getItem("description");
 
-  navName.innerText = name;
-  navDescription.innerText = description;
+  navName.innerText = savedName ?? "Jacques Cousteau";
+  navDescription.innerText = savedDescription;
 }
 
 editButton.addEventListener("click", toggleModal);
 
 formDetailsResetBtn.addEventListener("click", toggleModal);
 
-formDetailsResetBtn.addEventListener("click", toggleModal);
+form.addEventListener("input", (event) => {
+  let nameIsValid = formInputName.validity.valid;
+  let descriptionIsValid = formInputDescription.validity.valid;
+
+  if (nameIsValid && descriptionIsValid) {
+    formDetailsSubmitBtn.removeAttribute("disabled");
+  }
+});
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
