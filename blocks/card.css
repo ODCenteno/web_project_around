@@ -27,18 +27,19 @@
 }
 
 .card__place-title {
-  width: 210px;
+  width: 100%;
   color: black;
   font-weight: 900;
   font-size: 24px;
   line-height: 1;
+  overflow: hidden;
   text-overflow: ellipsis;
   text-align: start;
   white-space: nowrap;
 }
 
 .card__icon-container {
-  width: 81px;
+  width: 21px;
   margin-left: 8px;
   text-align: center;
   display: grid;
