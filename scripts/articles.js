@@ -73,14 +73,16 @@ articlesContent.forEach((article) => {
 
 articles.addEventListener("click", (event) => {
   const iconClicked = event.target;
-  const isLikedIcon = "true" === iconClicked.getAttribute("data-isliked");
-  console.log(isLikedIcon);
-
-  if (isLikedIcon) {
-    iconClicked.setAttribute("src", "./images/heart.svg");
-    iconClicked.setAttribute("data-isLiked", "false");
-  } else {
-    iconClicked.setAttribute("src", "./images/heart-liked.svg");
-    iconClicked.setAttribute("data-isLiked", "true");
+  console.log(iconClicked.classList);
+  if (iconClicked.classList[0].includes("icon")) {
+    const isLikedIcon = "true" === iconClicked.getAttribute("data-isliked");
+    console.log(isLikedIcon);
+    if (isLikedIcon) {
+      iconClicked.setAttribute("src", "./images/heart.svg");
+      iconClicked.setAttribute("data-isLiked", "false");
+    } else {
+      iconClicked.setAttribute("src", "./images/heart-liked.svg");
+      iconClicked.setAttribute("data-isLiked", "true");
+    }
   }
 });
