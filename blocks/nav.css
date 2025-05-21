@@ -31,6 +31,7 @@
 
 .nav__name {
   font-weight: 500;
+  font-family: 'Oddval';
   font-size: 42px;
   line-height: calc(48/42);
   margin: 0 0 16px;
