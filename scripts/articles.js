@@ -49,6 +49,9 @@ let articlesContent = [
   },
 ];
 
+const articles = document.querySelector("#articles");
+const addArticleBtn = document.querySelector(".nav__button-add");
+
 const baseArticleHTML = (article) => {
   const articleNode = document.createElement("article");
   articleNode.classList.add("card", "articles__card");
@@ -86,19 +89,16 @@ const baseArticleHTML = (article) => {
   return articleNode;
 };
 
-const articles = document.querySelector("#articles");
-
-// Actualizar los métodos para agregar una nueva tarjeta y quirar insertAdjacentHTML
 articlesContent.forEach((article) => {
   articles.prepend(baseArticleHTML(article));
 });
 
 articles.addEventListener("click", (event) => {
   const iconClicked = event.target;
-  console.log(iconClicked.classList);
+
   if (iconClicked.classList[0].includes("icon")) {
     const isLikedIcon = "true" === iconClicked.getAttribute("data-isliked");
-    console.log(isLikedIcon);
+
     if (isLikedIcon) {
       iconClicked.setAttribute("src", "./images/heart.svg");
       iconClicked.setAttribute("data-isLiked", "false");
@@ -108,11 +108,3 @@ articles.addEventListener("click", (event) => {
     }
   }
 });
-
-// Agregar nuevo controlador para el botón de abrir modal Add New Place
-
-// Lógica para el manejo de formulario Add New place y agregar nueva tarjeta
-
-// Agregar controlador para eliminar una tarjeta
-
-// Controlador para abrir una ventana emergente con la imagen ampliada y su nombre como caption

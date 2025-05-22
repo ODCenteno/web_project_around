@@ -58,8 +58,18 @@
 
     <main class="main">
       <section id="articles" class="articles">
+        <!-- <template id="article__template">
+          <article class="card articles__card">
+            <picture class="card__picture"><img class="card__image" src="" alt=""></picture>
+            <div class="card__place-info">
+              <h3 class="card__place-title"></h3>
+              <div class="card__icon-container"><img class="card__like-icon" src="" alt="like icon" data-isliked="">
+              </div>
+            </div>
+          </article>
+        </template> -->
       </section>
-      <aside class="popup popup_hidden">
+      <aside id="edit-profile-popup" class="popup popup_hidden">
         <form id="form-profile" class="popup__container" name="edit-form" action="/" method="post">
           <button type="reset" class="button popup__button-close" id="popup-button-close"></button>
           <h2 class="popup__title">Editar perfil</h2>
@@ -81,6 +91,19 @@
         6. Add New Card on the main page
         7. Clear fields and close Add New Field modal
       -->
+      <aside id="add-place-popup" class="popup popup_hidden">
+        <form id="form-place" class="popup__container" name="edit-form" action="/" method="post">
+          <button type="reset" class="button popup__button-close" id="popup-add-place-close"></button>
+          <h2 class="popup__title">Nuevo Lugar</h2>
+          <fieldset class="popup__fields">
+            <input type="text" class="popup__input" id="form-name" name="edit-name" placeholder="Título" minlength="2"
+              required>
+            <input type="text" class="popup__input" id="form-description" name="edit-description" minlength="2"
+              placeholder="Enlace a la imagen" required>
+          </fieldset>
+          <button type="submit" class="button popup__button-submit" id="popup-button-submit" disabled>Crear</button>
+        </form>
+      </aside>
     </main>
     <footer class="footer">
       <p class="footer__copy">&copy; 2025 Around The World by <a href="http://odcenteno.com"
