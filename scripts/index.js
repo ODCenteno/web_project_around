@@ -19,6 +19,8 @@ let details = {
   description: "",
 };
 
+let placeDetails = {};
+
 function toggleModal(popup) {
   const isHidden = popup.classList.contains("popup_hidden");
 
@@ -39,6 +41,12 @@ function updateDetails() {
   navDescription.innerText = savedDescription;
 }
 
+function formValidations(mainField, contentField, itemToActivate) {
+  if (mainField && contentField) {
+    itemToActivate.removeAttribute("disabled");
+  }
+}
+
 editButton.addEventListener("click", (e) => {
   toggleModal(profilePopup);
 });
@@ -52,9 +60,7 @@ form.addEventListener("input", (event) => {
   let nameIsValid = formInputName.validity.valid;
   let descriptionIsValid = formInputDescription.validity.valid;
 
-  if (nameIsValid && descriptionIsValid) {
-    formDetailsSubmitBtn.removeAttribute("disabled");
-  }
+  formValidations(nameIsValid, descriptionIsValid, formDetailsSubmitBtn);
 });
 
 form.addEventListener("submit", (e) => {
@@ -66,28 +72,3 @@ form.addEventListener("submit", (e) => {
   updateDetails();
   toggleModal(profilePopup);
 });
-
-addNewPlaceBtn.addEventListener("click", (e) => {
-  toggleModal(addPlacePopup);
-});
-
-addPlaceCloseBtn.addEventListener("click", (e) => {
-  toggleModal(addPlacePopup);
-});
-
-addPlaceForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  details.name = formInputName.value;
-  details.description = formInputDescription.value;
-  console.log(details);
-  // addPlaceToDB(place);
-  // updatePlaces(place);
-  toggleModal(addPlacePopup);
-});
-
-// Lógica para el manejo de formulario Add New place y agregar nueva tarjeta
-
-// Agregar controlador para eliminar una tarjeta
-
-// Controlador para abrir una ventana emergente con la imagen ampliada y su nombre como caption

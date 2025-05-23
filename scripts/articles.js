@@ -51,6 +51,9 @@ let articlesContent = [
 
 const articles = document.querySelector("#articles");
 const addArticleBtn = document.querySelector(".nav__button-add");
+const placeInputTitle = document.querySelector("#form-title");
+const formInputSource = document.querySelector("#form-img-src");
+const formPlaceSubmitBtn = document.querySelector("#place-button-submit");
 
 const baseArticleHTML = (article) => {
   const articleNode = document.createElement("article");
@@ -61,7 +64,7 @@ const baseArticleHTML = (article) => {
   imgNode.classList.add("card__image");
 
   imgNode.setAttribute("src", `${article.imageUrl}`);
-  imgNode.setAttribute("alt", `${article.imageAlt}`);
+  imgNode.setAttribute("alt", `${article.imageAlt ?? article.tittle}`);
 
   pictureNode.append(imgNode);
 
@@ -108,3 +111,39 @@ articles.addEventListener("click", (event) => {
     }
   }
 });
+
+addNewPlaceBtn.addEventListener("click", (e) => {
+  toggleModal(addPlacePopup);
+});
+
+addPlaceCloseBtn.addEventListener("click", (e) => {
+  toggleModal(addPlacePopup);
+});
+
+addPlaceForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const title = placeInputTitle.value;
+  const imgSrc = formInputSource.value;
+
+  console.log(title, imgSrc);
+
+  placeDetails.title = title;
+  placeDetails.src = imgSrc;
+  console.log(details);
+
+  // addPlaceToDB(place);
+  articles.prepend(baseArticleHTML(placeDetails));
+  toggleModal(addPlacePopup);
+});
+
+// Lógica para el manejo de formulario Add New place y agregar nueva tarjeta
+addPlaceForm.addEventListener("input", (e) => {
+  let titleIsValid = placeInputTitle.validity.valid;
+  let sourceIsValid = formInputSource.validity.valid;
+
+  formValidations(titleIsValid, sourceIsValid, formPlaceSubmitBtn);
+});
+// Agregar controlador para eliminar una tarjeta
+
+// Controlador para abrir una ventana emergente con la imagen ampliada y su nombre como caption
