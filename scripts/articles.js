@@ -54,6 +54,11 @@ const addArticleBtn = document.querySelector(".nav__button-add");
 const placeInputTitle = document.querySelector("#form-title");
 const formInputSource = document.querySelector("#form-img-src");
 const formPlaceSubmitBtn = document.querySelector("#place-button-submit");
+const deleteIcon = document.querySelectorAll(".card__delete-icon");
+const cardImage = document.querySelector("#card__picture");
+const imgPopup = document.querySelector("#popup__img-zoom");
+const imgZoom = document.querySelector("#zoom-img");
+const imgPopupClose = document.querySelector("#popup-image-close");
 
 const baseArticleHTML = (article) => {
   const articleNode = document.createElement("article");
@@ -62,11 +67,11 @@ const baseArticleHTML = (article) => {
   const pictureNode = document.createElement("picture");
   pictureNode.classList.add("card__picture");
 
-  console.log(`IMG SRC: ${(article.title, article.src)}`);
   const imgNode = document.createElement("img");
   imgNode.classList.add("card__image");
   imgNode.src = article.imageUrl ?? article.src;
   imgNode.alt = article.imageAlt ?? article.title;
+  imgNode.dataset.orientation = getOrientation(imgNode);
 
   pictureNode.append(imgNode);
 
@@ -84,6 +89,14 @@ const baseArticleHTML = (article) => {
   iconNode.alt = "like icon";
   iconNode.dataset.isLiked = article.isLiked;
 
+  const deleteNode = document.createElement("img");
+  deleteNode.classList.add("card__delete-icon");
+  deleteNode.src = "./images/delete.svg";
+  deleteNode.alt = "delete icon";
+  deleteNode.id = "delete";
+
+  articleNode.append(deleteNode);
+
   iconContainerNode.append(iconNode);
   divNode.append(h3Node, iconContainerNode);
   articleNode.append(pictureNode, divNode);
@@ -91,23 +104,40 @@ const baseArticleHTML = (article) => {
   return articleNode;
 };
 
+function getOrientation(img) {
+  const orientation = img.width > img.height ? "horizontal" : "vertical";
+  return orientation;
+}
+
+function zoomImage(imgSrc, imgAlt) {
+  imgZoom.alt = imgAlt;
+  imgZoom.title = imgAlt;
+  imgZoom.src = imgSrc;
+
+  toggleModal(imgPopup);
+}
+
 articlesContent.forEach((article) => {
   articles.prepend(baseArticleHTML(article));
 });
 
 articles.addEventListener("click", (event) => {
-  const iconClicked = event.target;
+  const pointClicked = event.target;
 
-  if (iconClicked.classList[0].includes("icon")) {
-    const isLikedIcon = "true" === iconClicked.getAttribute("data-isliked");
+  if (pointClicked.classList[0].includes("like")) {
+    const isLikedIcon = "true" === pointClicked.getAttribute("data-isliked");
 
     if (isLikedIcon) {
-      iconClicked.setAttribute("src", "./images/heart.svg");
-      iconClicked.setAttribute("data-isLiked", "false");
+      pointClicked.src = "./images/heart.svg";
+      pointClicked.setAttribute("data-isLiked", "false");
     } else {
-      iconClicked.setAttribute("src", "./images/heart-liked.svg");
-      iconClicked.setAttribute("data-isLiked", "true");
+      pointClicked.src = "./images/heart-liked.svg";
+      pointClicked.setAttribute("data-isLiked", "true");
     }
+  } else if (pointClicked.classList[0].includes("delete")) {
+    pointClicked.parentElement.remove();
+  } else if (pointClicked.classList[0].includes("image")) {
+    zoomImage(pointClicked.src, pointClicked.alt);
   }
 });
 
@@ -119,27 +149,19 @@ addPlaceCloseBtn.addEventListener("click", (e) => {
   toggleModal(addPlacePopup);
 });
 
+imgPopupClose.addEventListener("click", (e) => {
+  toggleModal(imgPopup);
+});
+
 addPlaceForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const title = placeInputTitle.value;
   const imgSrc = formInputSource.value;
 
-  // const getImg = await fetch(imgSrc, {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(placeDetails),
-  // });
-
-  console.log(title, imgSrc);
-
   placeDetails.title = title;
   placeDetails.src = await imgSrc;
-  console.log(placeDetails);
 
-  // addPlaceToDB(place);
   articles.prepend(baseArticleHTML(placeDetails));
   toggleModal(addPlacePopup);
   addPlaceForm.reset();
@@ -151,5 +173,3 @@ addPlaceForm.addEventListener("input", (e) => {
 
   formValidations(titleIsValid, sourceIsValid, formPlaceSubmitBtn);
 });
-
-// Controlador para abrir una ventana emergente con la imagen ampliada y su nombre como caption

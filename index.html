@@ -101,8 +101,14 @@
             <input type="text" class="popup__input" id="form-img-src" name="edit-description" minlength="2"
               placeholder="Enlace a la imagen" required>
           </fieldset>
-          <button type="submit" class="button popup__button-submit" id="place-button-submit" disabled>Crear</button>
+          <button type="submit" class="button popup__button-submit" id="place-button-submit" disabled>Guardar</button>
         </form>
+      </aside>
+      <aside id="popup__img-zoom" class="popup popup_hidden">
+        <div class="popup__container">
+          <button type="reset" class="button popup__button-close" id="popup-image-close"></button>
+          <img class="popup__image" id="zoom-img" src="" alt="" title="">
+        </div>
       </aside>
     </main>
     <footer class="footer">

@@ -85,6 +85,12 @@
   display: none;
 }
 
+.popup__image {
+  min-width: 200px;
+  min-height: 299px;
+  background-color: aqua;
+}
+
 @media screen and (max-width: 480px) {
   .popup__container {
     max-width: 282px;
