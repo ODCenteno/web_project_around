@@ -1,6 +1,6 @@
 let articlesContent = [
   {
-    articleTitle: "Valle de Yosemite",
+    title: "Valle de Yosemite",
     imageUrl: "./images/yosemite.webp",
     imageAlt: "Example of alternative description",
     iconUrl: "./images/heart.svg",
@@ -8,7 +8,7 @@ let articlesContent = [
     isLiked: false,
   },
   {
-    articleTitle: "Lago Louise",
+    title: "Lago Louise",
     imageUrl: "./images/lake.webp",
     imageAlt: "Example of alternative description",
     iconUrl: "./images/heart.svg",
@@ -16,7 +16,7 @@ let articlesContent = [
     isLiked: false,
   },
   {
-    articleTitle: "Montañas Calvas",
+    title: "Montañas Calvas",
     imageUrl: "./images/calvas.webp",
     imageAlt: "Example of alternative description",
     iconUrl: "./images/heart.svg",
@@ -24,7 +24,7 @@ let articlesContent = [
     isLiked: false,
   },
   {
-    articleTitle: "Latemar",
+    title: "Latemar",
     imageUrl: "./images/latemar.webp",
     imageAlt: "Example of alternative description",
     iconUrl: "./images/heart.svg",
@@ -32,7 +32,7 @@ let articlesContent = [
     isLiked: false,
   },
   {
-    articleTitle: "Vanois National Park",
+    title: "Vanois National Park",
     imageUrl: "./images/vanois.webp",
     imageAlt: "Example of alternative description",
     iconUrl: "./images/heart.svg",
@@ -40,7 +40,7 @@ let articlesContent = [
     isLiked: false,
   },
   {
-    articleTitle: "Lago di Braies",
+    title: "Lago di Braies",
     imageUrl: "./images/dibraies.webp",
     imageAlt: "Example of alternative description",
     iconUrl: "./images/heart.svg",
@@ -58,13 +58,15 @@ const formPlaceSubmitBtn = document.querySelector("#place-button-submit");
 const baseArticleHTML = (article) => {
   const articleNode = document.createElement("article");
   articleNode.classList.add("card", "articles__card");
+
   const pictureNode = document.createElement("picture");
   pictureNode.classList.add("card__picture");
+
+  console.log(`IMG SRC: ${(article.title, article.src)}`);
   const imgNode = document.createElement("img");
   imgNode.classList.add("card__image");
-
-  imgNode.setAttribute("src", `${article.imageUrl}`);
-  imgNode.setAttribute("alt", `${article.imageAlt ?? article.tittle}`);
+  imgNode.src = article.imageUrl ?? article.src;
+  imgNode.alt = article.imageAlt ?? article.title;
 
   pictureNode.append(imgNode);
 
@@ -72,22 +74,19 @@ const baseArticleHTML = (article) => {
   divNode.classList.add("card__place-info");
   const h3Node = document.createElement("h3");
   h3Node.classList.add("card__place-title");
-  h3Node.textContent = article.articleTitle;
+  h3Node.innerText = article.title;
   const iconContainerNode = document.createElement("div");
   iconContainerNode.classList.add("card__icon-container");
 
   const iconNode = document.createElement("img");
   iconNode.classList.add("card__like-icon");
-  iconNode.setAttribute("src", article.iconUrl);
-  iconNode.setAttribute("alt", "like icon");
-  iconNode.setAttribute("data-isLiked", article.isLiked);
+  iconNode.src = article.iconUrl ?? "./images/heart.svg";
+  iconNode.alt = "like icon";
+  iconNode.dataset.isLiked = article.isLiked;
+
   iconContainerNode.append(iconNode);
-
-  divNode.append(h3Node);
-  divNode.append(iconContainerNode);
-
-  articleNode.append(pictureNode);
-  articleNode.append(divNode);
+  divNode.append(h3Node, iconContainerNode);
+  articleNode.append(pictureNode, divNode);
 
   return articleNode;
 };
@@ -120,30 +119,37 @@ addPlaceCloseBtn.addEventListener("click", (e) => {
   toggleModal(addPlacePopup);
 });
 
-addPlaceForm.addEventListener("submit", (e) => {
+addPlaceForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const title = placeInputTitle.value;
   const imgSrc = formInputSource.value;
 
+  // const getImg = await fetch(imgSrc, {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify(placeDetails),
+  // });
+
   console.log(title, imgSrc);
 
   placeDetails.title = title;
-  placeDetails.src = imgSrc;
-  console.log(details);
+  placeDetails.src = await imgSrc;
+  console.log(placeDetails);
 
   // addPlaceToDB(place);
   articles.prepend(baseArticleHTML(placeDetails));
   toggleModal(addPlacePopup);
+  addPlaceForm.reset();
 });
 
-// Lógica para el manejo de formulario Add New place y agregar nueva tarjeta
 addPlaceForm.addEventListener("input", (e) => {
   let titleIsValid = placeInputTitle.validity.valid;
   let sourceIsValid = formInputSource.validity.valid;
 
   formValidations(titleIsValid, sourceIsValid, formPlaceSubmitBtn);
 });
-// Agregar controlador para eliminar una tarjeta
 
 // Controlador para abrir una ventana emergente con la imagen ampliada y su nombre como caption
