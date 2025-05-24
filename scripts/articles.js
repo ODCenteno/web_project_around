@@ -59,6 +59,7 @@ const cardImage = document.querySelector("#card__picture");
 const imgPopup = document.querySelector("#popup__img-zoom");
 const imgZoom = document.querySelector("#zoom-img");
 const imgPopupClose = document.querySelector("#popup-image-close");
+const figCaption = document.querySelector(".popup__figcaption");
 
 const baseArticleHTML = (article) => {
   const articleNode = document.createElement("article");
@@ -71,7 +72,13 @@ const baseArticleHTML = (article) => {
   imgNode.classList.add("card__image");
   imgNode.src = article.imageUrl ?? article.src;
   imgNode.alt = article.imageAlt ?? article.title;
-  imgNode.dataset.orientation = getOrientation(imgNode);
+  console.log(`IMG NODE: ${imgNode.attributes}`);
+  let imgOrientation = "";
+
+  imgNode.onload = function () {
+    imgOrientation = this.naturalWidth > this.naturalHeight ? "horizontal" : "vertical";
+    this.dataset.orientation = imgOrientation;
+  };
 
   pictureNode.append(imgNode);
 
@@ -104,15 +111,11 @@ const baseArticleHTML = (article) => {
   return articleNode;
 };
 
-function getOrientation(img) {
-  const orientation = img.width > img.height ? "horizontal" : "vertical";
-  return orientation;
-}
-
-function zoomImage(imgSrc, imgAlt) {
+function openImgPopup(imgSrc, imgAlt) {
   imgZoom.alt = imgAlt;
   imgZoom.title = imgAlt;
   imgZoom.src = imgSrc;
+  figCaption.innerText = imgAlt;
 
   toggleModal(imgPopup);
 }
@@ -137,7 +140,14 @@ articles.addEventListener("click", (event) => {
   } else if (pointClicked.classList[0].includes("delete")) {
     pointClicked.parentElement.remove();
   } else if (pointClicked.classList[0].includes("image")) {
-    zoomImage(pointClicked.src, pointClicked.alt);
+    const picContainer = document.querySelector(".popup__zoom-container");
+    if (pointClicked.dataset.orientation === "horizontal") {
+      picContainer.style.width = "816px";
+      picContainer.style.height = "auto";
+    } else {
+      picContainer.style.width = "433px";
+    }
+    openImgPopup(pointClicked.src, pointClicked.alt);
   }
 });
 
