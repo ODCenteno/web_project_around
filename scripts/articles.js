@@ -72,7 +72,7 @@ const baseArticleHTML = (article) => {
   imgNode.classList.add("card__image");
   imgNode.src = article.imageUrl ?? article.src;
   imgNode.alt = article.imageAlt ?? article.title;
-  console.log(`IMG NODE: ${imgNode.attributes}`);
+
   let imgOrientation = "";
 
   imgNode.onload = function () {
@@ -141,10 +141,13 @@ articles.addEventListener("click", (event) => {
     pointClicked.parentElement.remove();
   } else if (pointClicked.classList[0].includes("image")) {
     const picContainer = document.querySelector(".popup__zoom-container");
-    if (pointClicked.dataset.orientation === "horizontal") {
+
+    if (pointClicked.dataset.orientation === "horizontal" && document.documentElement.scrollWidth > 900) {
       picContainer.style.width = "816px";
       picContainer.style.height = "auto";
-    } else {
+    } else if (pointClicked.dataset.orientation === "vertical" && window.screen.availHeight <= 800) {
+      picContainer.style.width = "282px";
+    } else if (pointClicked.dataset.orientation === "vertical" && document.documentElement.scrollWidth > 900) {
       picContainer.style.width = "433px";
     }
     openImgPopup(pointClicked.src, pointClicked.alt);
