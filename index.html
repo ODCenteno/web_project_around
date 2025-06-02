@@ -60,27 +60,31 @@
       <section id="articles" class="articles">
       </section>
       <aside id="edit-profile-popup" class="popup popup_hidden">
-        <form id="form-profile" class="popup__container" name="edit-form" action="/" method="post">
+        <form id="form-profile" class="popup__form" name="edit-form" action="/" method="post" novalidate>
           <button type="reset" class="button popup__button-close" id="popup-button-close"></button>
           <h2 class="popup__title">Editar perfil</h2>
           <fieldset class="popup__fields">
-            <input type="text" class="popup__input" id="form-name" name="edit-name" placeholder="Nombre" minlength="2"
-              required>
-            <input type="text" class="popup__input" id="form-description" name="edit-description" minlength="2"
-              placeholder="Acerca de mí" required>
+            <input type="text" class="popup__input" id="popup-input-name" name="edit-name" placeholder="Nombre"
+              minlength="2" maxlength="40" required>
+            <span id="popup-input-name-error" class="popup__input_type_error"></span>
+            <input type="text" class="popup__input" id="popup-input-description" name="edit-description" minlength="2"
+              maxlength="200" placeholder="Acerca de mí" required>
+            <span id="popup-input-description-error" class="popup__input_type_error"></span>
           </fieldset>
           <button type="submit" class="button popup__button-submit" id="popup-button-submit" disabled>Guardar</button>
         </form>
       </aside>
       <aside id="add-place-popup" class="popup popup_hidden">
-        <form id="form-place" class="popup__container" name="edit-form" action="/" method="post">
+        <form id="form-place" class="popup__form" name="edit-form" action="/" method="post" novalidate>
           <button type="reset" class="button popup__button-close" id="popup-add-place-close"></button>
           <h2 class="popup__title">Nuevo Lugar</h2>
           <fieldset class="popup__fields">
             <input type="text" class="popup__input" id="form-title" name="edit-name" placeholder="Título" minlength="2"
-              required>
-            <input type="text" class="popup__input" id="form-img-src" name="edit-description" minlength="2"
+              maxlength="30" required>
+            <span id="popup-input-place-error" class="popup__input_type_error"></span>
+            <input type="text" class="popup__input" id="form-img-src" name="edit-description" pattern="https://"
               placeholder="Enlace a la imagen" required>
+            <span id="popup-input-url-error" class="popup__input_type_error"></span>
           </fieldset>
           <button type="submit" class="button popup__button-submit" id="place-button-submit" disabled>Guardar</button>
         </form>
@@ -98,7 +102,7 @@
           target="_blank">ODCenteno</a></p>
     </footer>
   </div>
-  <script src="./scripts/index.js"></script>
+  <script src="./scripts/index.js" type="module"></script>
 </body>
 
 </html>
