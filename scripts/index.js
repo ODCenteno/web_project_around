@@ -286,7 +286,6 @@ imgPopupClose.addEventListener("click", (e) => {
   toggleModal(imgPopup);
 });
 
-// Toggle popups/asides clicking area
 popups.forEach((aside) => {
   aside.addEventListener("click", (e) => {
     e.stopImmediatePropagation();
@@ -297,7 +296,6 @@ popups.forEach((aside) => {
   });
 });
 
-// Close Popups using Escape
 window.addEventListener("keydown", (e) => {
   e.stopImmediatePropagation();
   e.stopPropagation();
