@@ -57,7 +57,6 @@ const profileForm = document.querySelector("#form-profile");
 const formDetailsCloseBtn = document.querySelector("#popup-button-close");
 const formInputName = document.querySelector("#popup-input-name");
 const formInputDescription = document.querySelector("#popup-input-description");
-const formDetailsSubmitBtn = document.querySelector("#popup-button-submit");
 
 const navName = document.querySelector(".nav__name");
 const navDescription = document.querySelector(".nav__job-title");
@@ -71,12 +70,9 @@ const addPlaceForm = document.querySelector("#form-place");
 
 // Articles
 const articles = document.querySelector("#articles");
-const addArticleBtn = document.querySelector(".nav__button-add");
 const placeInputTitle = document.querySelector("#popup-input-title");
 const formInputSource = document.querySelector("#form-img-src");
 const formPlaceSubmitBtn = document.querySelector("#popup-button-place-submit");
-// const deleteIcon = document.querySelectorAll(".card__delete-icon");
-// const cardImage = document.querySelector("#card__picture");
 const imgPopup = document.querySelector("#popup__img-zoom");
 const imgZoom = document.querySelector("#zoom-img");
 const imgPopupClose = document.querySelector("#popup-image-close");
@@ -122,6 +118,7 @@ formDetailsCloseBtn.addEventListener("click", (e) => {
   e.stopPropagation();
   e.stopImmediatePropagation();
   toggleModal(profilePopup);
+  // TODO: Clear fields after close modal
 });
 
 function saveDetails(details) {
@@ -138,30 +135,19 @@ function updateDetails() {
   navDescription.innerText = savedDescription;
 }
 
-// function formValidations(mainField, contentField, itemToActivate) {
-//   if (mainField && contentField) {
-//     itemToActivate.removeAttribute("disabled");
-//   }
-// }
-
-// profileForm.addEventListener("input", (event) => {
-//   // refactorizar la validación de campos
-//   let nameIsValid = formInputName.validity.valid;
-//   let descriptionIsValid = formInputDescription.validity.valid;
-
-//   formValidations(nameIsValid, descriptionIsValid, formDetailsSubmitBtn);
-// });
-
 profileForm.addEventListener("submit", (e) => {
   e.preventDefault();
   e.stopPropagation();
   e.stopImmediatePropagation();
+
+  const submitButton = e.target.querySelector(config.submitButtonSelector);
 
   details.name = formInputName.value;
   details.description = formInputDescription.value;
   saveDetails(details);
   updateDetails();
   toggleModal(profilePopup);
+  submitButton.disabled = true;
   profileForm.reset();
 });
 
@@ -267,7 +253,7 @@ addPlaceCloseBtn.addEventListener("click", (e) => {
   e.stopPropagation();
   e.stopImmediatePropagation();
   toggleModal(addPlacePopup);
-  addPlaceCloseBtn.reset();
+  addPlaceCloseBtn.parentElement.reset();
 });
 
 imgPopupClose.addEventListener("click", (e) => {
@@ -281,6 +267,7 @@ addPlaceForm.addEventListener("submit", async (e) => {
 
   const title = placeInputTitle.value;
   const imgSrc = formInputSource.value;
+  const submitButton = e.target.querySelector(config.submitButtonSelector);
 
   placeDetails.title = title;
   placeDetails.src = await imgSrc;
@@ -288,6 +275,7 @@ addPlaceForm.addEventListener("submit", async (e) => {
   articles.prepend(baseArticleHTML(placeDetails));
   toggleModal(addPlacePopup);
   addPlaceForm.reset();
+  submitButton.disabled = true;
 });
 
 // Toggle popups/asides clicking area
@@ -308,6 +296,7 @@ window.addEventListener("keydown", (e) => {
   popups.forEach((popup) => {
     if (e.key === "Escape" && popup.classList.contains("popup-active")) {
       toggleModal(popup);
+      popup.firstElementChild.reset();
     }
   });
 });
