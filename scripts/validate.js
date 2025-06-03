@@ -1,14 +1,16 @@
 const showInputError = (formElement, inputElement, config) => {
+  console.log(`SHOWInputError, Input is: ${inputElement.id}`);
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
 
-  inputElement.classList.add("form__input_type_error");
+  inputElement.classList.add(config.inputErrorClass);
   errorElement.textContent = inputElement.validationMessage;
   errorElement.classList.add(config.errorClass);
 };
 
 const hideInputError = (formElement, inputElement, config) => {
+  console.log(`HideInputError, Input is: ${inputElement.id}`);
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  // inputElement.classList.remove("form__input_type_error");
+  inputElement.classList.remove(config.inputErrorClass);
   errorElement.textContent = "";
   errorElement.classList.remove(config.errorClass);
 };
@@ -23,7 +25,7 @@ const toggleErrorDisplay = (formElement, inputElement, config) => {
 };
 
 const checkInputListValidity = (formElement, config) => {
-  console.log(`Checking input validity for Selector: ${config.inputSelector}\nform: ${formElement}`);
+  console.log(`Checking input validity for Selector: ${config.inputSelector}\nform: ${formElement.id}`);
 
   const inputs = Array.from(formElement.querySelectorAll(config.inputSelector));
   return inputs.every((input) => input.validity.valid);

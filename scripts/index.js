@@ -52,11 +52,11 @@ let articlesContent = [
 ];
 
 const profilePopup = document.querySelector("#edit-profile-popup");
-const editCloseButton = document.querySelector("#button-edit");
+const editProfileButton = document.querySelector("#button-edit");
 const profileForm = document.querySelector("#form-profile");
 const formDetailsCloseBtn = document.querySelector("#popup-button-close");
-const formInputName = document.querySelector("#form-name");
-const formInputDescription = document.querySelector("#form-description");
+const formInputName = document.querySelector("#popup-input-name");
+const formInputDescription = document.querySelector("#popup-input-description");
 const formDetailsSubmitBtn = document.querySelector("#popup-button-submit");
 
 const navName = document.querySelector(".nav__name");
@@ -72,11 +72,11 @@ const addPlaceForm = document.querySelector("#form-place");
 // Articles
 const articles = document.querySelector("#articles");
 const addArticleBtn = document.querySelector(".nav__button-add");
-const placeInputTitle = document.querySelector("#form-title");
+const placeInputTitle = document.querySelector("#popup-input-title");
 const formInputSource = document.querySelector("#form-img-src");
-const formPlaceSubmitBtn = document.querySelector("#place-button-submit");
-const deleteIcon = document.querySelectorAll(".card__delete-icon");
-const cardImage = document.querySelector("#card__picture");
+const formPlaceSubmitBtn = document.querySelector("#popup-button-place-submit");
+// const deleteIcon = document.querySelectorAll(".card__delete-icon");
+// const cardImage = document.querySelector("#card__picture");
 const imgPopup = document.querySelector("#popup__img-zoom");
 const imgZoom = document.querySelector("#zoom-img");
 const imgPopupClose = document.querySelector("#popup-image-close");
@@ -89,9 +89,9 @@ const config = {
   inactiveButtonState: "disabled",
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
+  popupIsVisibleClass: "popup-active",
+  popupIsHiddenClass: "popup_hidden",
 };
-
-enableValidations(config);
 
 let details = {
   name: "",
@@ -101,18 +101,18 @@ let details = {
 let placeDetails = {};
 
 function toggleModal(popup) {
-  const isHidden = popup.classList.contains("popup_hidden");
+  const isHidden = popup.classList.contains(config.popupIsHiddenClass);
 
   if (isHidden) {
-    popup.classList.remove("popup_hidden");
-    popup.classList.add("popup-active");
+    popup.classList.remove(config.popupIsHiddenClass);
+    popup.classList.add(config.popupIsVisibleClass);
   } else {
-    popup.classList.add("popup_hidden");
-    popup.classList.remove("popup-active");
+    popup.classList.add(config.popupIsHiddenClass);
+    popup.classList.remove(config.popupIsVisibleClass);
   }
 }
 
-editCloseButton.addEventListener("click", (e) => {
+editProfileButton.addEventListener("click", (e) => {
   e.stopPropagation();
   e.stopImmediatePropagation();
   toggleModal(profilePopup);
@@ -138,19 +138,19 @@ function updateDetails() {
   navDescription.innerText = savedDescription;
 }
 
-function formValidations(mainField, contentField, itemToActivate) {
-  if (mainField && contentField) {
-    itemToActivate.removeAttribute("disabled");
-  }
-}
+// function formValidations(mainField, contentField, itemToActivate) {
+//   if (mainField && contentField) {
+//     itemToActivate.removeAttribute("disabled");
+//   }
+// }
 
-profileForm.addEventListener("input", (event) => {
-  // refactorizar la validación de campos
-  let nameIsValid = formInputName.validity.valid;
-  let descriptionIsValid = formInputDescription.validity.valid;
+// profileForm.addEventListener("input", (event) => {
+//   // refactorizar la validación de campos
+//   let nameIsValid = formInputName.validity.valid;
+//   let descriptionIsValid = formInputDescription.validity.valid;
 
-  formValidations(nameIsValid, descriptionIsValid, formDetailsSubmitBtn);
-});
+//   formValidations(nameIsValid, descriptionIsValid, formDetailsSubmitBtn);
+// });
 
 profileForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -162,6 +162,7 @@ profileForm.addEventListener("submit", (e) => {
   saveDetails(details);
   updateDetails();
   toggleModal(profilePopup);
+  profileForm.reset();
 });
 
 // Articles
@@ -266,6 +267,7 @@ addPlaceCloseBtn.addEventListener("click", (e) => {
   e.stopPropagation();
   e.stopImmediatePropagation();
   toggleModal(addPlacePopup);
+  addPlaceCloseBtn.reset();
 });
 
 imgPopupClose.addEventListener("click", (e) => {
@@ -286,14 +288,6 @@ addPlaceForm.addEventListener("submit", async (e) => {
   articles.prepend(baseArticleHTML(placeDetails));
   toggleModal(addPlacePopup);
   addPlaceForm.reset();
-});
-
-// New Place Form validation + create
-addPlaceForm.addEventListener("input", (e) => {
-  let titleIsValid = placeInputTitle.validity.valid;
-  let sourceIsValid = formInputSource.validity.valid;
-
-  formValidations(titleIsValid, sourceIsValid, formPlaceSubmitBtn);
 });
 
 // Toggle popups/asides clicking area
@@ -317,3 +311,5 @@ window.addEventListener("keydown", (e) => {
     }
   });
 });
+
+enableValidations(config);

@@ -66,12 +66,13 @@
           <fieldset class="popup__fields">
             <input type="text" class="popup__input" id="popup-input-name" name="edit-name" placeholder="Nombre"
               minlength="2" maxlength="40" required>
-            <span id="popup-input-name-error" class="popup__input_type_error"></span>
+            <span id="popup-input-name-error" class="popup__span-error"></span>
             <input type="text" class="popup__input" id="popup-input-description" name="edit-description" minlength="2"
               maxlength="200" placeholder="Acerca de mí" required>
-            <span id="popup-input-description-error" class="popup__input_type_error"></span>
+            <span id="popup-input-description-error" class="popup__span-error"></span>
           </fieldset>
-          <button type="submit" class="button popup__button-submit" id="popup-button-submit" disabled>Guardar</button>
+          <button type="submit" class="button popup__button-submit" id="popup-button-profile-submit"
+            disabled>Guardar</button>
         </form>
       </aside>
       <aside id="add-place-popup" class="popup popup_hidden">
@@ -79,14 +80,15 @@
           <button type="reset" class="button popup__button-close" id="popup-add-place-close"></button>
           <h2 class="popup__title">Nuevo Lugar</h2>
           <fieldset class="popup__fields">
-            <input type="text" class="popup__input" id="form-title" name="edit-name" placeholder="Título" minlength="2"
-              maxlength="30" required>
-            <span id="popup-input-place-error" class="popup__input_type_error"></span>
-            <input type="text" class="popup__input" id="form-img-src" name="edit-description" pattern="https://"
+            <input type="text" class="popup__input" id="popup-input-title" name="edit-name" placeholder="Título"
+              minlength="2" maxlength="30" required>
+            <span id="popup-input-title-error" class="popup__span-error"></span>
+            <input type="text" class="popup__input" id="form-img-src" name="edit-description" pattern="https://.*"
               placeholder="Enlace a la imagen" required>
-            <span id="popup-input-url-error" class="popup__input_type_error"></span>
+            <span id="form-img-src-error" class="popup__span-error"></span>
           </fieldset>
-          <button type="submit" class="button popup__button-submit" id="place-button-submit" disabled>Guardar</button>
+          <button type="submit" class="button popup__button-submit" id="popup-button-place-submit"
+            disabled>Guardar</button>
         </form>
       </aside>
       <aside id="popup__img-zoom" class="popup popup_hidden">
