@@ -12,11 +12,6 @@
   color: #545454;
 }
 
-
-/*
-TODO: Link format
-*/
-
 @media screen and (max-width: 879px) {
   .footer {
     padding: 0 32px;
@@ -26,6 +21,7 @@ TODO: Link format
 @media screen and (max-width: 480px) {
   .footer {
     padding: 0 16px;
+    justify-content: center;
   }
 
   .footer__copy {

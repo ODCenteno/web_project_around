@@ -117,8 +117,9 @@ editProfileButton.addEventListener("click", (e) => {
 formDetailsCloseBtn.addEventListener("click", (e) => {
   e.stopPropagation();
   e.stopImmediatePropagation();
+  const submitButton = e.target.parentElement.querySelector(config.submitButtonSelector);
+  submitButton.disabled = true;
   toggleModal(profilePopup);
-  // TODO: Clear fields after close modal
 });
 
 function saveDetails(details) {
@@ -131,9 +132,13 @@ function updateDetails() {
   const savedName = localStorage.getItem("name");
   const savedDescription = localStorage.getItem("description");
 
-  navName.innerText = savedName ?? "Jacques Cousteau";
-  navDescription.innerText = savedDescription;
+  navName.textContent = savedName ?? "Jacques Cousteau";
+  navDescription.textContent = savedDescription ?? "Edita el perfil para agregar una descripción";
 }
+
+window.addEventListener("load", () => {
+  updateDetails();
+});
 
 profileForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -237,7 +242,7 @@ articles.addEventListener("click", (event) => {
       picContainer.style.width = "816px";
       picContainer.style.height = "auto";
     } else if (pointClicked.dataset.orientation === "vertical" && window.screen.availHeight <= 800) {
-      picContainer.style.width = "282px";
+      picContainer.style.width = "262px";
     } else if (pointClicked.dataset.orientation === "vertical" && document.documentElement.scrollWidth > 900) {
       picContainer.style.width = "433px";
     }
@@ -252,14 +257,11 @@ addNewPlaceBtn.addEventListener("click", (e) => {
 addPlaceCloseBtn.addEventListener("click", (e) => {
   e.stopPropagation();
   e.stopImmediatePropagation();
+  const submitButton = e.target.parentElement.querySelector(config.submitButtonSelector);
+  submitButton.disabled = true;
+
   toggleModal(addPlacePopup);
   addPlaceCloseBtn.parentElement.reset();
-});
-
-imgPopupClose.addEventListener("click", (e) => {
-  e.stopPropagation();
-  e.stopImmediatePropagation();
-  toggleModal(imgPopup);
 });
 
 addPlaceForm.addEventListener("submit", async (e) => {
@@ -276,6 +278,12 @@ addPlaceForm.addEventListener("submit", async (e) => {
   toggleModal(addPlacePopup);
   addPlaceForm.reset();
   submitButton.disabled = true;
+});
+
+imgPopupClose.addEventListener("click", (e) => {
+  e.stopPropagation();
+  e.stopImmediatePropagation();
+  toggleModal(imgPopup);
 });
 
 // Toggle popups/asides clicking area
