@@ -4,10 +4,13 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  flex: 1;
+  min-width: 0;
 }
 
 .nav__avatar-container {
   width: 120px;
+  flex-shrink: 0;
 }
 
 .nav__avatar-position {
@@ -22,24 +25,40 @@
   border-radius: 50%;
 }
 
-.nav__name-edit {
+.nav__container {
+  max-width: 500px;
   display: flex;
-  gap: 18px;
+  gap: 8px;
+}
+
+.nav__name-edit {
+  max-width: 100%;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
   margin-right: 12px;
   justify-content: start;
   align-items: first baseline;
 }
 
 .nav__name {
+  max-width: 100%;
   font-weight: 500;
   font-family: 'Oddval';
   font-size: 42px;
   line-height: calc(48/42);
   margin: 0 0 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .nav__job-title {
+  width: 100%;
   font-size: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .nav__button-edit {
@@ -50,6 +69,7 @@
 
 .nav__button-add {
   margin-left: auto;
+  min-width: 75px;
   width: 150px;
   height: 50px;
   border: 2px solid white;
@@ -62,15 +82,6 @@
   .nav {
     padding: 0 24px;
   }
-}
-
-@media screen and (max-width: 580px) {
-  .nav__name {
-    font-size: 36px;
-  }
-}
-
-@media screen and (max-width: 480px) {
   .nav {
     height: auto;
     padding: 0;
@@ -85,14 +96,38 @@
   }
 
   .nav__container {
+    max-width: 95%;
     text-align: center;
-  }
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
   .nav__name {
     font-size: 24px;
     margin-bottom: 8px;
+    text-align: center;
   }
 
   .nav__button-add {
-    width: 100%;
+    min-width: 282px;
+    max-width: 633px;
+    margin-left: 0;
+    margin-top: 20px;
   }
+
+  .nav__name-edit {
+      align-items: center;
+      margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .nav__name {
+    font-size: 36px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+
 }

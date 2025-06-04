@@ -1,6 +1,6 @@
 import { enableValidations } from "./validate.js";
 
-let articlesContent = [
+const articlesContent = [
   {
     title: "Valle de Yosemite",
     imageUrl: "./images/yosemite.webp",
@@ -89,12 +89,12 @@ const config = {
   popupIsHiddenClass: "popup_hidden",
 };
 
-let details = {
+const details = {
   name: "",
   description: "",
 };
 
-let placeDetails = {};
+const placeDetails = {};
 
 function toggleModal(popup) {
   const isHidden = popup.classList.contains(config.popupIsHiddenClass);
@@ -157,7 +157,7 @@ profileForm.addEventListener("submit", (e) => {
 });
 
 // Articles
-const baseArticleHTML = (article) => {
+const createArticleHTML = (article) => {
   const articleNode = document.createElement("article");
   articleNode.classList.add("card", "articles__card");
 
@@ -169,9 +169,8 @@ const baseArticleHTML = (article) => {
   imgNode.src = article.imageUrl ?? article.src;
   imgNode.alt = article.imageAlt ?? article.title;
 
-  let imgOrientation = "";
-
   imgNode.onload = function () {
+    let imgOrientation = "";
     imgOrientation = this.naturalWidth > this.naturalHeight ? "horizontal" : "vertical";
     this.dataset.orientation = imgOrientation;
   };
@@ -182,7 +181,7 @@ const baseArticleHTML = (article) => {
   divNode.classList.add("card__place-info");
   const h3Node = document.createElement("h3");
   h3Node.classList.add("card__place-title");
-  h3Node.innerText = article.title;
+  h3Node.textContent = article.title;
   const iconContainerNode = document.createElement("div");
   iconContainerNode.classList.add("card__icon-container");
 
@@ -211,13 +210,13 @@ function openImgPopup(imgSrc, imgAlt) {
   imgZoom.alt = imgAlt;
   imgZoom.title = imgAlt;
   imgZoom.src = imgSrc;
-  figCaption.innerText = imgAlt;
+  figCaption.textContent = imgAlt;
 
   toggleModal(imgPopup);
 }
 
 articlesContent.forEach((article) => {
-  articles.prepend(baseArticleHTML(article));
+  articles.prepend(createArticleHTML(article));
 });
 
 articles.addEventListener("click", (event) => {
@@ -264,7 +263,7 @@ addPlaceCloseBtn.addEventListener("click", (e) => {
   addPlaceCloseBtn.parentElement.reset();
 });
 
-addPlaceForm.addEventListener("submit", async (e) => {
+addPlaceForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const title = placeInputTitle.value;
@@ -272,9 +271,9 @@ addPlaceForm.addEventListener("submit", async (e) => {
   const submitButton = e.target.querySelector(config.submitButtonSelector);
 
   placeDetails.title = title;
-  placeDetails.src = await imgSrc;
+  placeDetails.src = imgSrc;
 
-  articles.prepend(baseArticleHTML(placeDetails));
+  articles.prepend(createArticleHTML(placeDetails));
   toggleModal(addPlacePopup);
   addPlaceForm.reset();
   submitButton.disabled = true;
