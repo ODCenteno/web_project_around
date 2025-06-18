@@ -1,5 +1,5 @@
 import { enableValidations } from "./validate.js";
-import { articlesContent } from "./data.js";
+import { articlesContent, config } from "./data.js";
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 
@@ -29,17 +29,6 @@ const imgPopup = document.querySelector("#popup__img-zoom");
 const imgZoom = document.querySelector("#zoom-img");
 const imgPopupClose = document.querySelector("#popup-image-close");
 const figCaption = document.querySelector(".popup__figcaption");
-
-const config = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button-submit",
-  inactiveButtonState: "disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-  popupIsVisibleClass: "popup-active",
-  popupIsHiddenClass: "popup_hidden",
-};
 
 function toggleModal(popup) {
   const isHidden = popup.classList.contains(config.popupIsHiddenClass);
@@ -106,57 +95,6 @@ profileForm.addEventListener("submit", (e) => {
   profileForm.reset();
 });
 
-// Articles
-// const baseArticleHTML = (article) => {
-//   const articleNode = document.createElement("article");
-//   articleNode.classList.add("card", "articles__card");
-
-//   const pictureNode = document.createElement("picture");
-//   pictureNode.classList.add("card__picture");
-
-//   const imgNode = document.createElement("img");
-//   imgNode.classList.add("card__image");
-//   imgNode.src = article.imageUrl ?? article.src;
-//   imgNode.alt = article.imageAlt ?? article.title;
-
-//   let imgOrientation = "";
-
-//   imgNode.onload = function () {
-//     imgOrientation = this.naturalWidth > this.naturalHeight ? "horizontal" : "vertical";
-//     this.dataset.orientation = imgOrientation;
-//   };
-
-//   pictureNode.append(imgNode);
-
-//   const divNode = document.createElement("div");
-//   divNode.classList.add("card__place-info");
-//   const h3Node = document.createElement("h3");
-//   h3Node.classList.add("card__place-title");
-//   h3Node.innerText = article.title;
-//   const iconContainerNode = document.createElement("div");
-//   iconContainerNode.classList.add("card__icon-container");
-
-//   const iconNode = document.createElement("img");
-//   iconNode.classList.add("card__like-icon");
-//   iconNode.src = article.iconUrl ?? "./images/heart.svg";
-//   iconNode.alt = "like icon";
-//   iconNode.dataset.isLiked = article.isLiked;
-
-//   const deleteNode = document.createElement("img");
-//   deleteNode.classList.add("card__delete-icon");
-//   deleteNode.src = "./images/delete.svg";
-//   deleteNode.alt = "delete icon";
-//   deleteNode.id = "delete";
-
-//   articleNode.append(deleteNode);
-
-//   iconContainerNode.append(iconNode);
-//   divNode.append(h3Node, iconContainerNode);
-//   articleNode.append(pictureNode, divNode);
-
-//   return articleNode;
-// };
-
 function openImgPopup(imgSrc, imgAlt) {
   imgZoom.alt = imgAlt;
   imgZoom.title = imgAlt;
@@ -214,7 +152,7 @@ addPlaceCloseBtn.addEventListener("click", (e) => {
   addPlaceCloseBtn.parentElement.reset();
 });
 
-addPlaceForm.addEventListener("submit", async (e) => {
+addPlaceForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const title = placeInputTitle.value;
@@ -224,20 +162,23 @@ addPlaceForm.addEventListener("submit", async (e) => {
   const placeDetails = {};
 
   placeDetails.title = title;
-  placeDetails.src = await imgSrc;
+  placeDetails.src = imgSrc;
 
-  articles.prepend(baseArticleHTML(placeDetails));
+  articles.prepend(new Card(placeDetails).create());
   toggleModal(addPlacePopup);
   addPlaceForm.reset();
   submitButton.disabled = true;
 });
 
+// Close Popups
+// Close with exit button
 imgPopupClose.addEventListener("click", (e) => {
   e.stopPropagation();
   e.stopImmediatePropagation();
   toggleModal(imgPopup);
 });
 
+// Close clicking aside
 popups.forEach((aside) => {
   aside.addEventListener("click", (e) => {
     e.stopImmediatePropagation();
@@ -248,9 +189,11 @@ popups.forEach((aside) => {
   });
 });
 
+// Close popups with Escape key
 document.addEventListener("keydown", (e) => {
   e.stopImmediatePropagation();
   e.stopPropagation();
+
   popups.forEach((popup) => {
     if (e.key === "Escape" && popup.classList.contains("popup-active") && popup.firstElementChild.classList.contains("popup__form")) {
       popup.firstElementChild.reset();
@@ -261,4 +204,5 @@ document.addEventListener("keydown", (e) => {
   });
 });
 
-enableValidations(config);
+// enableValidations(config);
+const formValidator = new FormValidator(config).enableValidations();

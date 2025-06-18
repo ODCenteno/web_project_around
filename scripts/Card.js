@@ -1,11 +1,11 @@
 class Card {
   constructor(article) {
     this._title = article.title;
-    this._imageUrl = article.imageUrl;
-    this._imageAlt = article.imageAlt;
-    this._iconUrl = article.iconUrl;
-    this._likedIconUrl = article.likedIconUrl;
-    this._isLiked = article.isLiked;
+    this._imageUrl = article.imageUrl || article.imageSrc;
+    this._imageAlt = article.imageAlt || article.title;
+    this._iconUrl = article.iconUrl || "../images/heart.svg";
+    this._likedIconUrl = article.likedIconUrl || "../images/heart-liked.svg";
+    this._isLiked = article.isLiked || false;
   }
 
   _getCardFromTemplate() {
@@ -36,7 +36,6 @@ class Card {
     this._cardImage.onload = () => {
       this._imgOrientation = this._cardImage.naturalWidth > this._cardImage.naturalHeight ? "horizontal" : "vertical";
       this._cardImage.dataset.orientation = this._imgOrientation;
-      console.log(this._imgOrientation);
     };
   }
 

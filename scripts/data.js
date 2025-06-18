@@ -48,3 +48,14 @@ export const articlesContent = [
     isLiked: false,
   },
 ];
+
+export const config = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button-submit",
+  inactiveButtonState: "disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+  popupIsVisibleClass: "popup-active",
+  popupIsHiddenClass: "popup_hidden",
+};
