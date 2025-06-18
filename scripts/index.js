@@ -1,55 +1,7 @@
 import { enableValidations } from "./validate.js";
-
-let articlesContent = [
-  {
-    title: "Valle de Yosemite",
-    imageUrl: "./images/yosemite.webp",
-    imageAlt: "Example of alternative description",
-    iconUrl: "./images/heart.svg",
-    likedIconUrl: "./images/heart-liked.svg",
-    isLiked: false,
-  },
-  {
-    title: "Lago Louise",
-    imageUrl: "./images/lake.webp",
-    imageAlt: "Example of alternative description",
-    iconUrl: "./images/heart.svg",
-    likedIconUrl: "./images/heart-liked.svg",
-    isLiked: false,
-  },
-  {
-    title: "Montañas Calvas",
-    imageUrl: "./images/calvas.webp",
-    imageAlt: "Example of alternative description",
-    iconUrl: "./images/heart.svg",
-    likedIconUrl: "./images/heart-liked.svg",
-    isLiked: false,
-  },
-  {
-    title: "Latemar",
-    imageUrl: "./images/latemar.webp",
-    imageAlt: "Example of alternative description",
-    iconUrl: "./images/heart.svg",
-    likedIconUrl: "./images/heart-liked.svg",
-    isLiked: false,
-  },
-  {
-    title: "Vanois National Park",
-    imageUrl: "./images/vanois.webp",
-    imageAlt: "Example of alternative description",
-    iconUrl: "./images/heart.svg",
-    likedIconUrl: "./images/heart-liked.svg",
-    isLiked: false,
-  },
-  {
-    title: "Lago di Braies",
-    imageUrl: "./images/dibraies.webp",
-    imageAlt: "Example of alternative description",
-    iconUrl: "./images/heart.svg",
-    likedIconUrl: "./images/heart-liked.svg",
-    isLiked: false,
-  },
-];
+import { articlesContent } from "./data.js";
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
 
 const profilePopup = document.querySelector("#edit-profile-popup");
 const editProfileButton = document.querySelector("#button-edit");
@@ -88,13 +40,6 @@ const config = {
   popupIsVisibleClass: "popup-active",
   popupIsHiddenClass: "popup_hidden",
 };
-
-let details = {
-  name: "",
-  description: "",
-};
-
-let placeDetails = {};
 
 function toggleModal(popup) {
   const isHidden = popup.classList.contains(config.popupIsHiddenClass);
@@ -146,6 +91,11 @@ profileForm.addEventListener("submit", (e) => {
   e.stopImmediatePropagation();
 
   const submitButton = e.target.querySelector(config.submitButtonSelector);
+
+  const details = {
+    name: "",
+    description: "",
+  };
 
   details.name = formInputName.value;
   details.description = formInputDescription.value;
@@ -271,6 +221,8 @@ addPlaceForm.addEventListener("submit", async (e) => {
   const imgSrc = formInputSource.value;
   const submitButton = e.target.querySelector(config.submitButtonSelector);
 
+  const placeDetails = {};
+
   placeDetails.title = title;
   placeDetails.src = await imgSrc;
 
@@ -296,7 +248,7 @@ popups.forEach((aside) => {
   });
 });
 
-window.addEventListener("keydown", (e) => {
+document.addEventListener("keydown", (e) => {
   e.stopImmediatePropagation();
   e.stopPropagation();
   popups.forEach((popup) => {
