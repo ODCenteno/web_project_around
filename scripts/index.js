@@ -167,7 +167,7 @@ function openImgPopup(imgSrc, imgAlt) {
 }
 
 articlesContent.forEach((article) => {
-  articles.prepend(new Card(article).createCard());
+  articles.prepend(new Card(article).create());
 });
 
 articles.addEventListener("click", (event) => {
@@ -252,9 +252,11 @@ document.addEventListener("keydown", (e) => {
   e.stopImmediatePropagation();
   e.stopPropagation();
   popups.forEach((popup) => {
-    if (e.key === "Escape" && popup.classList.contains("popup-active")) {
-      toggleModal(popup);
+    if (e.key === "Escape" && popup.classList.contains("popup-active") && popup.firstElementChild.classList.contains("popup__form")) {
       popup.firstElementChild.reset();
+      toggleModal(popup);
+    } else if (e.key === "Escape" && popup.classList.contains("popup-active") && popup.id === "popup__img-zoom") {
+      toggleModal(popup);
     }
   });
 });
