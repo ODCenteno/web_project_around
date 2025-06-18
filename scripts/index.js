@@ -107,55 +107,55 @@ profileForm.addEventListener("submit", (e) => {
 });
 
 // Articles
-const baseArticleHTML = (article) => {
-  const articleNode = document.createElement("article");
-  articleNode.classList.add("card", "articles__card");
+// const baseArticleHTML = (article) => {
+//   const articleNode = document.createElement("article");
+//   articleNode.classList.add("card", "articles__card");
 
-  const pictureNode = document.createElement("picture");
-  pictureNode.classList.add("card__picture");
+//   const pictureNode = document.createElement("picture");
+//   pictureNode.classList.add("card__picture");
 
-  const imgNode = document.createElement("img");
-  imgNode.classList.add("card__image");
-  imgNode.src = article.imageUrl ?? article.src;
-  imgNode.alt = article.imageAlt ?? article.title;
+//   const imgNode = document.createElement("img");
+//   imgNode.classList.add("card__image");
+//   imgNode.src = article.imageUrl ?? article.src;
+//   imgNode.alt = article.imageAlt ?? article.title;
 
-  let imgOrientation = "";
+//   let imgOrientation = "";
 
-  imgNode.onload = function () {
-    imgOrientation = this.naturalWidth > this.naturalHeight ? "horizontal" : "vertical";
-    this.dataset.orientation = imgOrientation;
-  };
+//   imgNode.onload = function () {
+//     imgOrientation = this.naturalWidth > this.naturalHeight ? "horizontal" : "vertical";
+//     this.dataset.orientation = imgOrientation;
+//   };
 
-  pictureNode.append(imgNode);
+//   pictureNode.append(imgNode);
 
-  const divNode = document.createElement("div");
-  divNode.classList.add("card__place-info");
-  const h3Node = document.createElement("h3");
-  h3Node.classList.add("card__place-title");
-  h3Node.innerText = article.title;
-  const iconContainerNode = document.createElement("div");
-  iconContainerNode.classList.add("card__icon-container");
+//   const divNode = document.createElement("div");
+//   divNode.classList.add("card__place-info");
+//   const h3Node = document.createElement("h3");
+//   h3Node.classList.add("card__place-title");
+//   h3Node.innerText = article.title;
+//   const iconContainerNode = document.createElement("div");
+//   iconContainerNode.classList.add("card__icon-container");
 
-  const iconNode = document.createElement("img");
-  iconNode.classList.add("card__like-icon");
-  iconNode.src = article.iconUrl ?? "./images/heart.svg";
-  iconNode.alt = "like icon";
-  iconNode.dataset.isLiked = article.isLiked;
+//   const iconNode = document.createElement("img");
+//   iconNode.classList.add("card__like-icon");
+//   iconNode.src = article.iconUrl ?? "./images/heart.svg";
+//   iconNode.alt = "like icon";
+//   iconNode.dataset.isLiked = article.isLiked;
 
-  const deleteNode = document.createElement("img");
-  deleteNode.classList.add("card__delete-icon");
-  deleteNode.src = "./images/delete.svg";
-  deleteNode.alt = "delete icon";
-  deleteNode.id = "delete";
+//   const deleteNode = document.createElement("img");
+//   deleteNode.classList.add("card__delete-icon");
+//   deleteNode.src = "./images/delete.svg";
+//   deleteNode.alt = "delete icon";
+//   deleteNode.id = "delete";
 
-  articleNode.append(deleteNode);
+//   articleNode.append(deleteNode);
 
-  iconContainerNode.append(iconNode);
-  divNode.append(h3Node, iconContainerNode);
-  articleNode.append(pictureNode, divNode);
+//   iconContainerNode.append(iconNode);
+//   divNode.append(h3Node, iconContainerNode);
+//   articleNode.append(pictureNode, divNode);
 
-  return articleNode;
-};
+//   return articleNode;
+// };
 
 function openImgPopup(imgSrc, imgAlt) {
   imgZoom.alt = imgAlt;
@@ -167,7 +167,7 @@ function openImgPopup(imgSrc, imgAlt) {
 }
 
 articlesContent.forEach((article) => {
-  articles.prepend(baseArticleHTML(article));
+  articles.prepend(new Card(article).createCard());
 });
 
 articles.addEventListener("click", (event) => {
