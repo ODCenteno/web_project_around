@@ -1,4 +1,3 @@
-import { enableValidations } from "./validate.js";
 import { articlesContent, config } from "./data.js";
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
@@ -29,6 +28,12 @@ const imgPopup = document.querySelector("#popup__img-zoom");
 const imgZoom = document.querySelector("#zoom-img");
 const imgPopupClose = document.querySelector("#popup-image-close");
 const figCaption = document.querySelector(".popup__figcaption");
+
+// TODO: Agregar el removeEventListener al cerrar el modal cuando se cierra con Escape
+
+// TODO: mover listener de card a la clase
+
+// TODO: En cada método,debes referirte al campo de la clase, y no pasarlo a cada método, como se implementó anteriormente
 
 function toggleModal(popup) {
   const isHidden = popup.classList.contains(config.popupIsHiddenClass);
@@ -154,19 +159,15 @@ addPlaceCloseBtn.addEventListener("click", (e) => {
 
 addPlaceForm.addEventListener("submit", (e) => {
   e.preventDefault();
-
-  const title = placeInputTitle.value;
-  const imgSrc = formInputSource.value;
-  const submitButton = e.target.querySelector(config.submitButtonSelector);
-
   const placeDetails = {};
-
-  placeDetails.title = title;
-  placeDetails.src = imgSrc;
+  placeDetails.title = placeInputTitle.value;
+  placeDetails.imageSrc = formInputSource.value;
 
   articles.prepend(new Card(placeDetails).create());
   toggleModal(addPlacePopup);
   addPlaceForm.reset();
+
+  const submitButton = e.target.querySelector(config.submitButtonSelector);
   submitButton.disabled = true;
 });
 
@@ -205,4 +206,4 @@ document.addEventListener("keydown", (e) => {
 });
 
 // enableValidations(config);
-const formValidator = new FormValidator(config).enableValidations();
+new FormValidator(config).enableValidation();
