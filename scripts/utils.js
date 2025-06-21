@@ -1,4 +1,77 @@
-import { config } from "./data.js";
+export const articlesContent = [
+  {
+    title: "Valle de Yosemite",
+    imageUrl: "./images/yosemite.webp",
+    imageAlt: "Example of alternative description",
+    iconUrl: "./images/heart.svg",
+    likedIconUrl: "./images/heart-liked.svg",
+    isLiked: false,
+  },
+  {
+    title: "Lago Louise",
+    imageUrl: "./images/lake.webp",
+    iconUrl: "./images/heart.svg",
+    likedIconUrl: "./images/heart-liked.svg",
+    isLiked: false,
+  },
+  {
+    title: "Montañas Calvas",
+    imageUrl: "./images/calvas.webp",
+    iconUrl: "./images/heart.svg",
+    likedIconUrl: "./images/heart-liked.svg",
+    isLiked: false,
+  },
+  {
+    title: "Latemar",
+    imageUrl: "./images/latemar.webp",
+    iconUrl: "./images/heart.svg",
+    likedIconUrl: "./images/heart-liked.svg",
+    isLiked: false,
+  },
+  {
+    title: "Vanois National Park",
+    imageUrl: "./images/vanois.webp",
+    iconUrl: "./images/heart.svg",
+    likedIconUrl: "./images/heart-liked.svg",
+    isLiked: false,
+  },
+  {
+    title: "Lago di Braies",
+    imageUrl: "./images/dibraies.webp",
+    iconUrl: "./images/heart.svg",
+    likedIconUrl: "./images/heart-liked.svg",
+    isLiked: false,
+  },
+];
+
+export const config = {
+  placeDetails: {},
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button-submit",
+  inactiveButtonState: "disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+  popupIsVisibleClass: "popup-active",
+  popupIsHiddenClass: "popup_hidden",
+  editProfileBtnElement: document.querySelector("#edit-profile-btn"),
+  profilePopupElement: document.querySelector("#edit-profile-popup"),
+  profileForm: document.querySelector("#form-profile"),
+  formDetailsCloseBtn: document.querySelector("#popup-button-close"),
+  addNewPlaceBtn: document.querySelector(".nav__button-add"),
+  addPlacePopup: document.querySelector("#add-place-popup"),
+  addPlaceCloseBtn: document.querySelector("#popup-add-place-close"),
+  addPlaceForm: document.querySelector("#form-place"),
+  placeInputTitle: document.querySelector("#popup-input-title"),
+  formInputSource: document.querySelector("#form-img-src"),
+  formPlaceSubmitBtn: document.querySelector("#popup-button-place-submit"),
+  articlesSection: document.querySelector("#articles"),
+  imgPopup: document.querySelector("#popup__img-zoom"),
+  imgPopupClose: document.querySelector("#popup-image-close"),
+  imgZoom: document.querySelector("#zoom-img"),
+  figCaption: document.querySelector(".popup__figcaption"),
+  popups: document.querySelectorAll(".popup"),
+};
 
 function saveDetails(details) {
   details.name ? localStorage.setItem("name", details.name) : "";
