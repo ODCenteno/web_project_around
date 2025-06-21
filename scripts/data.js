@@ -10,7 +10,6 @@ export const articlesContent = [
   {
     title: "Lago Louise",
     imageUrl: "./images/lake.webp",
-    imageAlt: "Example of alternative description",
     iconUrl: "./images/heart.svg",
     likedIconUrl: "./images/heart-liked.svg",
     isLiked: false,
@@ -18,7 +17,6 @@ export const articlesContent = [
   {
     title: "Montañas Calvas",
     imageUrl: "./images/calvas.webp",
-    imageAlt: "Example of alternative description",
     iconUrl: "./images/heart.svg",
     likedIconUrl: "./images/heart-liked.svg",
     isLiked: false,
@@ -26,7 +24,6 @@ export const articlesContent = [
   {
     title: "Latemar",
     imageUrl: "./images/latemar.webp",
-    imageAlt: "Example of alternative description",
     iconUrl: "./images/heart.svg",
     likedIconUrl: "./images/heart-liked.svg",
     isLiked: false,
@@ -34,7 +31,6 @@ export const articlesContent = [
   {
     title: "Vanois National Park",
     imageUrl: "./images/vanois.webp",
-    imageAlt: "Example of alternative description",
     iconUrl: "./images/heart.svg",
     likedIconUrl: "./images/heart-liked.svg",
     isLiked: false,
@@ -42,7 +38,6 @@ export const articlesContent = [
   {
     title: "Lago di Braies",
     imageUrl: "./images/dibraies.webp",
-    imageAlt: "Example of alternative description",
     iconUrl: "./images/heart.svg",
     likedIconUrl: "./images/heart-liked.svg",
     isLiked: false,
@@ -58,4 +53,21 @@ export const config = {
   errorClass: "popup__error_visible",
   popupIsVisibleClass: "popup-active",
   popupIsHiddenClass: "popup_hidden",
+  editProfileBtnElement: document.querySelector("#edit-profile-btn"),
+  profilePopupElement: document.querySelector("#edit-profile-popup"),
+  profileForm: document.querySelector("#form-profile"),
+  formDetailsCloseBtn: document.querySelector("#popup-button-close"),
+  addNewPlaceBtn: document.querySelector(".nav__button-add"),
+  addPlacePopup: document.querySelector("#add-place-popup"),
+  addPlaceCloseBtn: document.querySelector("#popup-add-place-close"),
+  addPlaceForm: document.querySelector("#form-place"),
+  placeInputTitle: document.querySelector("#popup-input-title"),
+  formInputSource: document.querySelector("#form-img-src"),
+  formPlaceSubmitBtn: document.querySelector("#popup-button-place-submit"),
+  articlesSection: document.querySelector("#articles"),
+  imgPopup: document.querySelector("#popup__img-zoom"),
+  imgPopupClose: document.querySelector("#popup-image-close"),
+  imgZoom: document.querySelector("#zoom-img"),
+  figCaption: document.querySelector(".popup__figcaption"),
+  popups: document.querySelectorAll(".popup"),
 };

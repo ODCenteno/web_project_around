@@ -14,22 +14,24 @@ class Card {
   }
 
   _setCardInformation() {
-    const cardTitle = this._cardElement.querySelector(".card__place-title");
-    cardTitle.textContent = this._title;
+    this._cardElement.querySelector(".card__place-title").textContent = this._title;
 
     this._cardImage = this._cardElement.querySelector(".card__image");
     this._cardImage.src = this._imageUrl;
     this._cardImage.alt = this._imageAlt ?? this._title;
+    this._cardImage.title = this._title;
 
     const cardLikeIcon = this._cardElement.querySelector(".card__like-icon");
     cardLikeIcon.src = this._iconUrl ?? "./images/heart.svg";
     cardLikeIcon.alt = "like icon";
     cardLikeIcon.dataset.isLiked = this._isLiked;
+    cardLikeIcon.title = "Da click para marcarla o desmarcar como favorita";
 
     const cardDeleteIcon = this._cardElement.querySelector(".card__delete-icon");
     cardDeleteIcon.src = "./images/delete.svg";
     cardDeleteIcon.alt = "Delete icon";
     cardDeleteIcon.dataset.isLiked = this._isLiked;
+    cardDeleteIcon.title = "Da click para eliminar esta tarjeta";
   }
 
   _defineImageOrientation() {
