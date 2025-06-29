@@ -35,3 +35,5 @@ articlesContent.forEach((article) => {
     });
   });
 })();
+
+// TODO: crear instancia de cada popup

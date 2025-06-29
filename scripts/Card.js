@@ -1,4 +1,7 @@
 class Card {
+  // TODO: Conecta la clase Card al popup
+  // TODO: Hace que Card lleve la función handleCardClick() al constructor.
+  // TODO Cuando el usuario haga clic en la tarjeta, esta función abrirá el popup con una imagen.
   constructor(article) {
     this._title = article.title;
     this._imageUrl = article.imageUrl || article.imageSrc;
