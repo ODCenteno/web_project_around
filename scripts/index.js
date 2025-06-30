@@ -1,6 +1,8 @@
-import Card from "./Card.js";
-import FormValidator from "./FormValidator.js";
-import { articlesContent, config, updateDetails, toggleModal, controlProfileForm, manageModals, manageCardController } from "./utils.js";
+import Card from "./Components/Card.js";
+import FormValidator from "./Components/FormValidator.js";
+import Section from "./Components/Section.js";
+import { articlesContent, config } from "./data.js";
+import { updateDetails, toggleModal, controlProfileForm, manageModals } from "./utils.js";
 
 function controlAddPlaceForm(e) {
   e.preventDefault();
@@ -12,9 +14,18 @@ function controlAddPlaceForm(e) {
   toggleModal(config.addPlacePopup);
 }
 
-articlesContent.forEach((article) => {
-  config.articlesSection.prepend(new Card(article).create());
-});
+const cardsSection = new Section(
+  {
+    items: articlesContent,
+    renderer: (item) => {
+      const card = new Card(item).create();
+      cardsSection.add(card);
+    },
+  },
+  config.cardsSectionSelector
+);
+
+cardsSection.renderItems();
 
 (function validateForms() {
   const forms = document.querySelectorAll(config.formSelector);
@@ -23,7 +34,7 @@ articlesContent.forEach((article) => {
 
 (function setPageEventListeners() {
   window.addEventListener("load", updateDetails);
-  config.articlesSection.addEventListener("click", manageCardController);
+  // config.articlesSection.addEventListener("click", manageCardController);
   document.addEventListener("click", manageModals);
   config.profileForm.addEventListener("submit", controlProfileForm);
   config.addPlaceForm.addEventListener("submit", controlAddPlaceForm);
