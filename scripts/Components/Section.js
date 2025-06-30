@@ -14,7 +14,7 @@ export default class Section {
     this._sectionContainer.innerHTML = "";
   }
 
-  add(item) {
+  addItem(item) {
     this._sectionContainer.prepend(item);
   }
 }

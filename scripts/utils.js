@@ -32,8 +32,6 @@ export function toggleModal(popup) {
 }
 
 export function manageModals(e, aside) {
-  e.stopPropagation();
-  e.stopImmediatePropagation();
   const target = e.target;
 
   const isProfileModalElement = config.editProfileBtnElement === target || config.formDetailsCloseBtn === target;

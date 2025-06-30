@@ -1,5 +1,6 @@
 import Card from "./Components/Card.js";
 import FormValidator from "./Components/FormValidator.js";
+import Popup from "./Components/Popup.js";
 import Section from "./Components/Section.js";
 import { articlesContent, config } from "./data.js";
 import { updateDetails, toggleModal, controlProfileForm, manageModals, manageCardController } from "./utils.js";
@@ -24,7 +25,7 @@ const cardsSection = new Section(
           manageCardController(evt);
         },
       }).create();
-      cardsSection.add(card);
+      cardsSection.addItem(card);
     },
   },
   config.cardsSectionSelector
@@ -52,3 +53,5 @@ cardsSection.renderItems();
 })();
 
 // TODO: crear instancia de cada popup
+const examplepop = new Popup(config.popupPlaceSelector);
+examplepop.open();
