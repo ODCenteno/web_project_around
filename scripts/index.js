@@ -2,7 +2,7 @@ import Card from "./Components/Card.js";
 import FormValidator from "./Components/FormValidator.js";
 import Section from "./Components/Section.js";
 import { articlesContent, config } from "./data.js";
-import { updateDetails, toggleModal, controlProfileForm, manageModals } from "./utils.js";
+import { updateDetails, toggleModal, controlProfileForm, manageModals, manageCardController } from "./utils.js";
 
 function controlAddPlaceForm(e) {
   e.preventDefault();
@@ -18,13 +18,17 @@ const cardsSection = new Section(
   {
     items: articlesContent,
     renderer: (item) => {
-      const card = new Card(item).create();
+      const card = new Card({
+        article: item,
+        handleCardClick: (evt) => {
+          manageCardController(evt);
+        },
+      }).create();
       cardsSection.add(card);
     },
   },
   config.cardsSectionSelector
 );
-
 cardsSection.renderItems();
 
 (function validateForms() {

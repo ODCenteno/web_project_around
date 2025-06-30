@@ -2,13 +2,14 @@ class Card {
   // TODO: Conecta la clase Card al popup
   // TODO: Hace que Card lleve la función handleCardClick() al constructor.
   // TODO Cuando el usuario haga clic en la tarjeta, esta función abrirá el popup con una imagen.
-  constructor(article, templateSelector) {
+  constructor({ article, handleCardClick }, templateSelector) {
     this._title = article.title;
     this._imageUrl = article.imageUrl || article.imageSrc;
     this._imageAlt = article.imageAlt || article.title;
     this._iconUrl = article.iconUrl || "../images/heart.svg";
     this._likedIconUrl = article.likedIconUrl || "../images/heart-liked.svg";
     this._isLiked = article.isLiked || false;
+    this._handleCardClick = handleCardClick;
     this._templateSelector = templateSelector || "#card-template";
   }
 
@@ -46,53 +47,9 @@ class Card {
   }
 
   _setEventListeners() {
-    this._cardElement.addEventListener("click", (e) => {
-      this._cardEvent = e;
-      e.stopPropagation();
-      e.stopImmediatePropagation();
-      this._manageCardController(this._cardEvent);
+    this._cardElement.addEventListener("click", (evt) => {
+      this._handleCardClick(evt);
     });
-  }
-
-  _manageCardController(e) {
-    const pointClicked = e.target;
-
-    console.log(`Target: ${e.target}`);
-    console.log(`Current Target: ${e.currenTarget}`);
-
-    const isImageClicked = pointClicked.classList[0].includes("image");
-    const isLikeIconClicked = pointClicked.classList[0].includes("like");
-    const isLiked = "true" === pointClicked.getAttribute("data-isliked");
-    const isDeleteIcon = pointClicked.classList[0].includes("delete");
-
-    if (isLikeIconClicked && isLiked) {
-      pointClicked.src = "./images/heart.svg";
-      pointClicked.setAttribute("data-isLiked", "false");
-    } else {
-      pointClicked.src = "./images/heart-liked.svg";
-      pointClicked.setAttribute("data-isLiked", "true");
-    }
-    if (isDeleteIcon) {
-      pointClicked.parentElement.remove();
-    }
-    if (isImageClicked) {
-      const picContainer = document.querySelector(".popup__zoom-container");
-
-      const isHorizontal = pointClicked.dataset.orientation === "horizontal";
-      const isVertical = pointClicked.dataset.orientation === "vertical";
-      const isLargeScroll = document.documentElement.scrollWidth > 900;
-      const isSmallHeight = window.screen.availHeight <= 800;
-
-      if (isHorizontal && isLargeScroll) {
-        picContainer.style.width = "816px";
-        picContainer.style.height = "auto";
-      } else if (isVertical && isSmallHeight) {
-        picContainer.style.width = "262px";
-      } else if (isVertical && isLargeScroll) {
-        picContainer.style.width = "433px";
-      }
-      openImgPopup(pointClicked.src, pointClicked.alt);
-    }
   }
 
   create() {

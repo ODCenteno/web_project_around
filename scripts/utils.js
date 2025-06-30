@@ -83,42 +83,42 @@ function openImgPopup(imgSrc, imgAlt) {
   toggleModal(config.imgPopup);
 }
 
-// export function manageCardController(e) {
-//   const pointClicked = e.target;
+export function manageCardController(e) {
+  const pointClicked = e.target;
 
-//   const isLikeIconClicked = pointClicked.classList[0].includes("like");
+  const isLikeIconClicked = pointClicked.classList[0].includes("like");
 
-//   if (isLikeIconClicked) {
-//     const isLikedIcon = "true" === pointClicked.getAttribute("data-isliked");
+  if (isLikeIconClicked) {
+    const isLikedIcon = "true" === pointClicked.getAttribute("data-isliked");
 
-//     if (isLikedIcon) {
-//       pointClicked.src = "./images/heart.svg";
-//       pointClicked.setAttribute("data-isLiked", "false");
-//     } else {
-//       pointClicked.src = "./images/heart-liked.svg";
-//       pointClicked.setAttribute("data-isLiked", "true");
-//     }
-//   } else if (pointClicked.classList[0].includes("delete")) {
-//     pointClicked.parentElement.remove();
-//   } else if (pointClicked.classList[0].includes("image")) {
-//     const picContainer = document.querySelector(".popup__zoom-container");
+    if (isLikedIcon) {
+      pointClicked.src = "./images/heart.svg";
+      pointClicked.setAttribute("data-isLiked", "false");
+    } else {
+      pointClicked.src = "./images/heart-liked.svg";
+      pointClicked.setAttribute("data-isLiked", "true");
+    }
+  } else if (pointClicked.classList[0].includes("delete")) {
+    pointClicked.parentElement.remove();
+  } else if (pointClicked.classList[0].includes("image")) {
+    const picContainer = document.querySelector(".popup__zoom-container");
 
-//     const isHorizontal = pointClicked.dataset.orientation === "horizontal";
-//     const isVertical = pointClicked.dataset.orientation === "vertical";
-//     const isLargeScroll = document.documentElement.scrollWidth > 900;
-//     const isSmallHeight = window.screen.availHeight <= 800;
+    const isHorizontal = pointClicked.dataset.orientation === "horizontal";
+    const isVertical = pointClicked.dataset.orientation === "vertical";
+    const isLargeScroll = document.documentElement.scrollWidth > 900;
+    const isSmallHeight = window.screen.availHeight <= 800;
 
-//     if (isHorizontal && isLargeScroll) {
-//       picContainer.style.width = "816px";
-//       picContainer.style.height = "auto";
-//     } else if (isVertical && isSmallHeight) {
-//       picContainer.style.width = "262px";
-//     } else if (isVertical && isLargeScroll) {
-//       picContainer.style.width = "433px";
-//     }
-//     openImgPopup(pointClicked.src, pointClicked.alt);
-//   }
-// }
+    if (isHorizontal && isLargeScroll) {
+      picContainer.style.width = "816px";
+      picContainer.style.height = "auto";
+    } else if (isVertical && isSmallHeight) {
+      picContainer.style.width = "262px";
+    } else if (isVertical && isLargeScroll) {
+      picContainer.style.width = "433px";
+    }
+    openImgPopup(pointClicked.src, pointClicked.alt);
+  }
+}
 
 export function escapeEventController(e) {
   e.stopImmediatePropagation();
