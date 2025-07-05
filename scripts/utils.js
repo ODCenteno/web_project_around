@@ -16,69 +16,54 @@ export function updateDetails() {
   navDescription.textContent = savedDescription ?? "Edita el perfil para agregar una descripción";
 }
 
-export function toggleModal(popup) {
-  const isHidden = popup.classList.contains(config.popupIsHiddenClass);
+// export function toggleModal(popup) {
+//   const isHidden = popup.classList.contains(config.popupIsHiddenClass);
 
-  if (isHidden) {
-    popup.classList.remove(config.popupIsHiddenClass);
-    popup.classList.add(config.popupIsVisibleClass);
-    document.addEventListener("keydown", escapeEventController);
-  } else {
-    popup.classList.add(config.popupIsHiddenClass);
-    popup.classList.remove(config.popupIsVisibleClass);
-    popup.querySelector(".popup__form")?.reset();
-    document.removeEventListener("keydown", escapeEventController);
-  }
-}
+//   if (isHidden) {
+//     popup.classList.remove(config.popupIsHiddenClass);
+//     popup.classList.add(config.popupIsVisibleClass);
+//     document.addEventListener("keydown", escapeEventController);
+//   } else {
+//     popup.classList.add(config.popupIsHiddenClass);
+//     popup.classList.remove(config.popupIsVisibleClass);
+//     popup.querySelector(".popup__form")?.reset();
+//     document.removeEventListener("keydown", escapeEventController);
+//   }
+// }
 
-export function manageModals(e, aside) {
-  const target = e.target;
+// export function manageModals(e, aside) {
+//   const target = e.target;
 
-  const isProfileModalElement = config.editProfileBtnElement === target || config.formDetailsCloseBtn === target;
-  const isPlaceModalElement = config.addNewPlaceBtn === target || config.addPlaceCloseBtn === target;
-  const isImgCloseButton = config.imgPopupClose === target;
-  const isModal = aside === target;
+//   const isProfileModalElement = config.editProfileBtnElement === target || config.formDetailsCloseBtn === target;
+//   const isPlaceModalElement = config.addNewPlaceBtn === target || config.addPlaceCloseBtn === target;
+//   const isImgCloseButton = config.imgPopupClose === target;
+//   const isModal = aside === target;
 
-  if (isProfileModalElement) {
-    toggleModal(config.profilePopupElement);
-  }
-  if (isPlaceModalElement) {
-    toggleModal(config.addPlacePopup);
-  }
-  if (isImgCloseButton) {
-    toggleModal(config.imgPopup);
-  }
-  if (isModal) {
-    toggleModal(aside);
-  }
-}
+//   if (isProfileModalElement) {
+//     toggleModal(config.profilePopupElement);
+//   }
+//   if (isPlaceModalElement) {
+//     toggleModal(config.addPlacePopup);
+//   }
+//   if (isImgCloseButton) {
+//     toggleModal(config.imgPopup);
+//   }
+//   if (isModal) {
+//     toggleModal(aside);
+//   }
+// }
 
 export function controlProfileForm(e) {
-  e.preventDefault();
-  e.stopPropagation();
-  e.stopImmediatePropagation();
-
-  const formInputName = e.target.querySelector("#popup-input-name");
-  const formInputDescription = e.target.querySelector("#popup-input-description");
   const details = {
     name: "",
     description: "",
   };
 
-  details.name = formInputName.value;
-  details.description = formInputDescription.value;
-  saveDetails(details);
+  details.name = e.target.querySelector("#popup-input-name").value;
+  details.description = e.target.querySelector("#popup-input-description").value;
+  //saveDetails(details);
   updateDetails();
-  toggleModal(e.target.parentElement);
-}
-
-function openImgPopup(imgSrc, imgAlt) {
-  // config.imgZoom.alt = imgAlt;
-  // config.imgZoom.title = imgAlt;
-  // config.imgZoom.src = imgSrc;
-  // config.figCaption.innerText = imgAlt;
-
-  toggleModal(config.imgPopup);
+  this.close();
 }
 
 function changeLikeIconState(pointClicked, isLiked) {

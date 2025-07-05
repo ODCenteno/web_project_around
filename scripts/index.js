@@ -1,12 +1,10 @@
 import Card from "./Components/Card.js";
 import FormValidator from "./Components/FormValidator.js";
-import Popup from "./Components/Popup.js";
 import PopupWithImage from "./Components/PopupWithImage.js";
+import PopupWithForm from "./Components/PopupWithForm.js";
 import Section from "./Components/Section.js";
 import { articlesContent, config } from "./data.js";
-import { updateDetails, toggleModal, controlProfileForm, manageModals, manageCardController } from "./utils.js";
-
-const PopImge = new PopupWithImage(config.imgPopupSelector);
+import { updateDetails, controlProfileForm, manageCardController } from "./utils.js";
 
 function controlAddPlaceForm(e) {
   e.preventDefault();
@@ -35,6 +33,15 @@ const cardsSection = new Section(
 );
 cardsSection.renderItems();
 
+const PopImge = new PopupWithImage(config.imgPopupSelector);
+const UserForm = new PopupWithForm(config.popupProfileSelector, (e) => {
+  controlProfileForm(e);
+});
+
+config.editProfileBtnElement.addEventListener("click", () => {
+  UserForm.open();
+});
+
 (function validateForms() {
   const forms = document.querySelectorAll(config.formSelector);
   forms.forEach((form) => new FormValidator(form, config).enableValidations());
@@ -42,7 +49,6 @@ cardsSection.renderItems();
 
 (function setPageEventListeners() {
   window.addEventListener("load", updateDetails);
-  document.addEventListener("click", manageModals);
-  config.profileForm.addEventListener("submit", controlProfileForm);
+  //document.addEventListener("click", manageModals);
   config.addPlaceForm.addEventListener("submit", controlAddPlaceForm);
 })();
