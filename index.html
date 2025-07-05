@@ -83,8 +83,8 @@
             <input type="text" class="popup__input" id="popup-input-title" name="edit-name" placeholder="Título"
               minlength="2" maxlength="30" required>
             <span id="popup-input-title-error" class="popup__span-error"></span>
-            <input type="text" class="popup__input" id="form-img-src" name="edit-description" pattern="https://.*"
-              placeholder="Enlace a la imagen" required>
+            <input type="text" class="popup__input" id="form-img-src" name="edit-link" pattern="https://.*"
+              placeholder="Enlace a la imagen: http://..." required>
             <span id="form-img-src-error" class="popup__span-error"></span>
           </fieldset>
           <button type="submit" class="button popup__button-submit" id="popup-button-place-submit"
@@ -94,7 +94,7 @@
       <aside id="popup__img-zoom" class="popup popup_hidden">
         <figure class="popup__zoom-container">
           <button type="reset" class="button popup__button-close" id="popup-image-close"></button>
-          <img class="popup__image" id="zoom-img" src="" alt="" title="">
+          <img class="popup__image" id="zoom-img" src=" " alt=" " title=" ">
           <figcaption class="popup__figcaption"></figcaption>
         </figure>
       </aside>

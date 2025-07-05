@@ -1,9 +1,12 @@
 import Card from "./Components/Card.js";
 import FormValidator from "./Components/FormValidator.js";
 import Popup from "./Components/Popup.js";
+import PopupWithImage from "./Components/PopupWithImage.js";
 import Section from "./Components/Section.js";
 import { articlesContent, config } from "./data.js";
 import { updateDetails, toggleModal, controlProfileForm, manageModals, manageCardController } from "./utils.js";
+
+const PopImge = new PopupWithImage(config.imgPopupSelector);
 
 function controlAddPlaceForm(e) {
   e.preventDefault();
@@ -22,7 +25,7 @@ const cardsSection = new Section(
       const card = new Card({
         article: item,
         handleCardClick: (evt) => {
-          manageCardController(evt);
+          manageCardController(evt, PopImge);
         },
       }).create();
       cardsSection.addItem(card);
@@ -39,19 +42,7 @@ cardsSection.renderItems();
 
 (function setPageEventListeners() {
   window.addEventListener("load", updateDetails);
-  // config.articlesSection.addEventListener("click", manageCardController);
   document.addEventListener("click", manageModals);
   config.profileForm.addEventListener("submit", controlProfileForm);
   config.addPlaceForm.addEventListener("submit", controlAddPlaceForm);
-  config.popups.forEach((popup) => {
-    popup.addEventListener("click", (e) => {
-      e.stopPropagation();
-      e.stopImmediatePropagation();
-      manageModals(e, popup);
-    });
-  });
 })();
-
-// TODO: crear instancia de cada popup
-const examplepop = new Popup(config.popupPlaceSelector);
-examplepop.open();

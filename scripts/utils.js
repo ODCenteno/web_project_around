@@ -73,48 +73,36 @@ export function controlProfileForm(e) {
 }
 
 function openImgPopup(imgSrc, imgAlt) {
-  config.imgZoom.alt = imgAlt;
-  config.imgZoom.title = imgAlt;
-  config.imgZoom.src = imgSrc;
-  config.figCaption.innerText = imgAlt;
+  // config.imgZoom.alt = imgAlt;
+  // config.imgZoom.title = imgAlt;
+  // config.imgZoom.src = imgSrc;
+  // config.figCaption.innerText = imgAlt;
 
   toggleModal(config.imgPopup);
 }
 
-export function manageCardController(e) {
+function changeLikeIconState(pointClicked, isLiked) {
+  if (isLiked) {
+    pointClicked.src = "./images/heart.svg";
+    pointClicked.setAttribute("data-isLiked", "false");
+  } else {
+    pointClicked.src = "./images/heart-liked.svg";
+    pointClicked.setAttribute("data-isLiked", "true");
+  }
+}
+
+export function manageCardController(e, PopImge) {
   const pointClicked = e.target;
 
   const isLikeIconClicked = pointClicked.classList[0].includes("like");
+  const isLiked = "true" === pointClicked.getAttribute("data-isliked");
+  const isDeleteIconClicked = pointClicked.classList[0].includes("delete");
+  const isImageClicked = pointClicked.classList[0].includes("image");
 
-  if (isLikeIconClicked) {
-    const isLikedIcon = "true" === pointClicked.getAttribute("data-isliked");
-
-    if (isLikedIcon) {
-      pointClicked.src = "./images/heart.svg";
-      pointClicked.setAttribute("data-isLiked", "false");
-    } else {
-      pointClicked.src = "./images/heart-liked.svg";
-      pointClicked.setAttribute("data-isLiked", "true");
-    }
-  } else if (pointClicked.classList[0].includes("delete")) {
-    pointClicked.parentElement.remove();
-  } else if (pointClicked.classList[0].includes("image")) {
-    const picContainer = document.querySelector(".popup__zoom-container");
-
-    const isHorizontal = pointClicked.dataset.orientation === "horizontal";
-    const isVertical = pointClicked.dataset.orientation === "vertical";
-    const isLargeScroll = document.documentElement.scrollWidth > 900;
-    const isSmallHeight = window.screen.availHeight <= 800;
-
-    if (isHorizontal && isLargeScroll) {
-      picContainer.style.width = "816px";
-      picContainer.style.height = "auto";
-    } else if (isVertical && isSmallHeight) {
-      picContainer.style.width = "262px";
-    } else if (isVertical && isLargeScroll) {
-      picContainer.style.width = "433px";
-    }
-    openImgPopup(pointClicked.src, pointClicked.alt);
+  if (isLikeIconClicked) changeLikeIconState(pointClicked, isLiked);
+  if (isDeleteIconClicked) pointClicked.parentElement.remove();
+  if (isImageClicked) {
+    PopImge.open(pointClicked);
   }
 }
 

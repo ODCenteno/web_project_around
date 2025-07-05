@@ -53,6 +53,7 @@ export const config = {
   inactiveButtonState: "disabled",
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
+  imgPopupSelector: "#popup__img-zoom",
   popupProfileSelector: "#edit-profile-popup",
   popupPlaceSelector: "#add-place-popup",
   popupImageSelector: "#popup__img-zoom",

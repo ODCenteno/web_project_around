@@ -2,33 +2,31 @@ import { config } from "../data.js";
 
 export default class Popup {
   constructor(popupSelector) {
-    this._popupSelector = popupSelector;
-    this._popup = document.querySelector(this._popupSelector);
+    this._popup = document.querySelector(popupSelector);
     this._popupCloseButton = this._popup.querySelector(config.popupCloseButtonSelector);
-    this._boundHandleEscClose = this._handleEscClose.bind(this);
+    this.setEventListeners();
   }
 
   open() {
     this._popup.classList.remove(config.popupIsHiddenClass);
     this._popup.classList.add(config.popupIsVisibleClass);
-    this.setEventListeners();
+    document.addEventListener("keydown", this._handleEscClose);
   }
 
   close() {
-    this._popup.classList.add(config.popupIsHiddenClass);
     this._popup.classList.remove(config.popupIsVisibleClass);
-    document.removeEventListener("keydown", this._boundHandleEscClose);
+    this._popup.classList.add(config.popupIsHiddenClass);
+    document.removeEventListener("keydown", this._handleEscClose);
   }
 
-  _handleEscClose(e) {
+  _handleEscClose = (e) => {
     const isEscapeKey = e.key === "Escape";
     if (isEscapeKey) {
       this.close();
     }
-  }
+  };
 
   setEventListeners() {
-    document.addEventListener("keydown", this._boundHandleEscClose);
     this._popupCloseButton.addEventListener("click", (e) => {
       e.stopPropagation();
       e.stopImmediatePropagation();
