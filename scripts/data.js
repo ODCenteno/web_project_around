@@ -47,6 +47,7 @@ export const articlesContent = [
 export const config = {
   placeDetails: {},
   cardsSectionSelector: "#articles",
+  cardTemplateSelector: "#card-template",
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__button-submit",

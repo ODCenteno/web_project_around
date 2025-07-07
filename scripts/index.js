@@ -6,40 +6,55 @@ import Section from "./Components/Section.js";
 import { articlesContent, config } from "./data.js";
 import { updateDetails, controlProfileForm, manageCardController } from "./utils.js";
 
-function controlAddPlaceForm(e) {
-  e.preventDefault();
-
-  config.placeDetails.title = config.placeInputTitle.value;
-  config.placeDetails.imageSrc = config.formInputSource.value;
-
-  config.articlesSection.prepend(new Card(config.placeDetails).create());
-  toggleModal(config.addPlacePopup);
-}
-
 const cardsSection = new Section(
   {
     items: articlesContent,
     renderer: (item) => {
-      const card = new Card({
-        article: item,
-        handleCardClick: (evt) => {
-          manageCardController(evt, PopImge);
+      const card = new Card(
+        {
+          article: item,
+          handleCardClick: (pointClicked) => {
+            const isImageClicked = manageCardController(pointClicked);
+            isImageClicked ? PopImge.open(pointClicked) : "";
+          },
         },
-      }).create();
-      cardsSection.addItem(card);
+        config.cardTemplateSelector
+      ).create();
+      return card;
     },
   },
   config.cardsSectionSelector
 );
 cardsSection.renderItems();
 
+const controlAddPlaceForm = (formDetails) => {
+  cardsSection.addItem(
+    new Card(
+      {
+        article: formDetails,
+        handleCardClick: (pointClicked) => {
+          const isImageClicked = manageCardController(pointClicked);
+          isImageClicked ? PopImge.open(pointClicked) : "";
+        },
+      },
+      config.cardTemplateSelector
+    ).create()
+  );
+};
+
 const PopImge = new PopupWithImage(config.imgPopupSelector);
-const UserForm = new PopupWithForm(config.popupProfileSelector, (e) => {
-  controlProfileForm(e);
+const UserForm = new PopupWithForm(config.popupProfileSelector, (formDetails) => {
+  controlProfileForm(formDetails);
+});
+const PlaceForm = new PopupWithForm(config.popupPlaceSelector, (formDetails) => {
+  controlAddPlaceForm(formDetails);
 });
 
 config.editProfileBtnElement.addEventListener("click", () => {
   UserForm.open();
+});
+config.addNewPlaceBtn.addEventListener("click", () => {
+  PlaceForm.open();
 });
 
 (function validateForms() {
@@ -49,6 +64,4 @@ config.editProfileBtnElement.addEventListener("click", () => {
 
 (function setPageEventListeners() {
   window.addEventListener("load", updateDetails);
-  //document.addEventListener("click", manageModals);
-  config.addPlaceForm.addEventListener("submit", controlAddPlaceForm);
 })();

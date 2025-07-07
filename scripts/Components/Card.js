@@ -1,8 +1,8 @@
 class Card {
   constructor({ article, handleCardClick }, templateSelector) {
-    this._title = article.title;
-    this._imageUrl = article.imageUrl || article.imageSrc;
-    this._imageAlt = article.imageAlt || article.title;
+    this._title = article.title || article["edit-name"];
+    this._imageUrl = article.imageUrl || article.imageSrc || article["edit-link"];
+    this._imageAlt = article.imageAlt || article.title || article["edit-name"];
     this._iconUrl = article.iconUrl || "../images/heart.svg";
     this._likedIconUrl = article.likedIconUrl || "../images/heart-liked.svg";
     this._isLiked = article.isLiked || false;
@@ -44,8 +44,9 @@ class Card {
   }
 
   _setEventListeners() {
-    this._cardElement.addEventListener("click", (evt) => {
-      this._handleCardClick(evt);
+    this._cardElement.addEventListener("click", (e) => {
+      const pointClicked = e.target;
+      this._handleCardClick(pointClicked);
     });
   }
 

@@ -4,26 +4,30 @@ export default class PopupWithForm extends Popup {
   constructor(popupSelector, handleSubmit) {
     super(popupSelector);
     this._form = this._popup.querySelector(".popup__form");
-    console.log(this._form);
     this._handleSubmit = handleSubmit;
   }
 
-  _getInputValues() {}
+  _getInputValues() {
+    this._inputList = Array.from(this._form.querySelectorAll("input"));
+    this._formDetails = {};
 
-  _setEventListeners = () => {
-    // debe agregar al formulario un controlador de eventos submit
+    this._inputList.forEach((input) => {
+      this._formDetails[input.name] = input.value;
+    });
+
+    return this._formDetails;
+  }
+
+  _setEventListeners() {
+    super._setEventListeners();
     this._form.addEventListener("submit", (e) => {
       e.preventDefault();
-      e.stopPropagation();
-      e.stopImmediatePropagation();
-      console.log(e.target);
-      this._handleSubmit(e);
+      this._handleSubmit(this._getInputValues());
+      this.close();
     });
-    super._setEventListeners();
-  };
+  }
 
   close() {
-    // limpia el formulario.
     this._form.reset();
     super.close();
   }
