@@ -1,14 +1,31 @@
-export default class UserInfor {
-  constructor({ name, description }) {
-    this._userName = name;
-    this._description = description;
+export default class UserInfo {
+  constructor({ nameSelector, descriptionSelector }) {
+    this._navNameElement = document.querySelector(nameSelector);
+    this._navDescriptionElement = document.querySelector(descriptionSelector);
   }
 
   getUserInfo() {
-    return { name: this._userName, job: this._description };
+    this._userName = localStorage.getItem("name") || "Welcome on board";
+    this._description = localStorage.getItem("description") || "Set a description";
+    return { name: this._userName, description: this._description };
   }
 
-  setUserInfo() {
-    // toma los datos del nuevo usuario y los agrega en la página.
+  _saveDetails() {
+    localStorage.setItem("name", this._userName);
+    localStorage.setItem("description", this._description);
+  }
+
+  setUserInfo(userDetails) {
+    if (userDetails) {
+      this._userName = userDetails.name;
+      this._description = userDetails.description;
+      this._saveDetails();
+    }
+
+    const userInfo = this.getUserInfo();
+
+    this._navNameElement.textContent = userInfo.name;
+    this._navDescriptionElement.textContent = userInfo.description;
+    return userInfo;
   }
 }

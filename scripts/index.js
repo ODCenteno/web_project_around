@@ -3,24 +3,42 @@ import FormValidator from "./Components/FormValidator.js";
 import PopupWithImage from "./Components/PopupWithImage.js";
 import PopupWithForm from "./Components/PopupWithForm.js";
 import Section from "./Components/Section.js";
+import UserInfo from "./Components/UserInfo.js";
 import { articlesContent, config } from "./data.js";
-import { updateDetails, controlProfileForm, manageCardController } from "./utils.js";
+import { manageCardController } from "./utils.js";
+
+const User = new UserInfo({ nameSelector: config.userNameSelector, descriptionSelector: config.userJobDescriptionSelector });
+
+const PopImge = new PopupWithImage(config.imgPopupSelector);
+
+const UserForm = new PopupWithForm(config.popupProfileSelector, (formDetails) => {
+  User.setUserInfo(formDetails);
+});
+
+const PlaceForm = new PopupWithForm(config.popupPlaceSelector, (formDetails) => {
+  controlAddPlaceForm(formDetails);
+});
+
+function createCard(item, imgPopupInstance) {
+  const card = new Card(
+    {
+      article: item,
+      handleCardClick: (pointClicked) => {
+        const isImageClicked = manageCardController(pointClicked);
+        if (isImageClicked) imgPopupInstance.open(pointClicked);
+      },
+    },
+    config.cardTemplateSelector
+  );
+
+  return card.create();
+}
 
 const cardsSection = new Section(
   {
     items: articlesContent,
     renderer: (item) => {
-      const card = new Card(
-        {
-          article: item,
-          handleCardClick: (pointClicked) => {
-            const isImageClicked = manageCardController(pointClicked);
-            isImageClicked ? PopImge.open(pointClicked) : "";
-          },
-        },
-        config.cardTemplateSelector
-      ).create();
-      return card;
+      return createCard(item, PopImge);
     },
   },
   config.cardsSectionSelector
@@ -28,27 +46,9 @@ const cardsSection = new Section(
 cardsSection.renderItems();
 
 const controlAddPlaceForm = (formDetails) => {
-  cardsSection.addItem(
-    new Card(
-      {
-        article: formDetails,
-        handleCardClick: (pointClicked) => {
-          const isImageClicked = manageCardController(pointClicked);
-          isImageClicked ? PopImge.open(pointClicked) : "";
-        },
-      },
-      config.cardTemplateSelector
-    ).create()
-  );
+  const newCardElement = createCard(formDetails, PopImge);
+  cardsSection.addItem(newCardElement);
 };
-
-const PopImge = new PopupWithImage(config.imgPopupSelector);
-const UserForm = new PopupWithForm(config.popupProfileSelector, (formDetails) => {
-  controlProfileForm(formDetails);
-});
-const PlaceForm = new PopupWithForm(config.popupPlaceSelector, (formDetails) => {
-  controlAddPlaceForm(formDetails);
-});
 
 config.editProfileBtnElement.addEventListener("click", () => {
   UserForm.open();
@@ -63,5 +63,7 @@ config.addNewPlaceBtn.addEventListener("click", () => {
 })();
 
 (function setPageEventListeners() {
-  window.addEventListener("load", updateDetails);
+  window.addEventListener("load", () => {
+    User.setUserInfo();
+  });
 })();

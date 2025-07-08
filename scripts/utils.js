@@ -1,26 +1,5 @@
 import { config } from "./data.js";
 
-function saveDetails(details) {
-  details["edit-name"] ? localStorage.setItem("name", details["edit-name"]) : "";
-  details["edit-description"] ? localStorage.setItem("description", details["edit-description"]) : "";
-}
-
-export function updateDetails() {
-  const navName = document.querySelector(".nav__name");
-  const navDescription = document.querySelector(".nav__job-title");
-
-  const savedName = localStorage.getItem("name");
-  const savedDescription = localStorage.getItem("description");
-
-  navName.textContent = savedName ?? "Jacques Cousteau";
-  navDescription.textContent = savedDescription ?? "Edita el perfil para agregar una descripción";
-}
-
-export const controlProfileForm = (formDetails) => {
-  saveDetails(formDetails);
-  updateDetails();
-};
-
 const changeLikeIconState = (pointClicked, isLiked) => {
   if (isLiked) {
     pointClicked.src = "./images/heart.svg";
@@ -42,4 +21,5 @@ export const manageCardController = (pointClicked) => {
   if (isImageClicked) {
     return true;
   }
+  return false;
 };

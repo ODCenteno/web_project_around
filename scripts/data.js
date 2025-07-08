@@ -46,6 +46,8 @@ export const articlesContent = [
 
 export const config = {
   placeDetails: {},
+  userNameSelector: ".nav__name",
+  userJobDescriptionSelector: ".nav__job-title",
   cardsSectionSelector: "#articles",
   cardTemplateSelector: "#card-template",
   formSelector: ".popup__form",
