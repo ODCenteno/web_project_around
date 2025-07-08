@@ -1,8 +1,8 @@
 class Card {
   constructor({ article, handleCardClick }, templateSelector) {
     this._title = article.title || article["edit-name"];
-    this._imageUrl = article.imageUrl || article.imageSrc || article["edit-link"];
-    this._imageAlt = article.imageAlt || article.title || article["edit-name"];
+    this._imageUrl = article.imageUrl || article.imageSrc || article.link;
+    this._imageAlt = article.imageAlt || article.title || article.name;
     this._iconUrl = article.iconUrl || "../images/heart.svg";
     this._likedIconUrl = article.likedIconUrl || "../images/heart-liked.svg";
     this._isLiked = article.isLiked || false;
