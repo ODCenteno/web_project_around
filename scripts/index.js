@@ -1,3 +1,5 @@
+"use strict";
+
 import Card from "./Components/Card.js";
 import FormValidator from "./Components/FormValidator.js";
 import PopupWithImage from "./Components/PopupWithImage.js";

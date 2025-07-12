@@ -1,7 +1,6 @@
 .page {
   max-width: 880px;
   margin: 0 auto;
-  font-smooth: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
