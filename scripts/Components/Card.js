@@ -8,6 +8,9 @@ class Card {
     this._isLiked = article.isLiked || false;
     this._handleCardClick = handleCardClick;
     this._templateSelector = templateSelector || "#card-template";
+    this._id = article._id;
+    this.owner = article.owner;
+    this._cretedAt = article.createdAt;
   }
 
   _getCardFromTemplate() {

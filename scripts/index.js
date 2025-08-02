@@ -8,6 +8,7 @@ import Section from "./Components/Section.js";
 import UserInfo from "./Components/UserInfo.js";
 import { articlesContent, config } from "./data.js";
 import { manageCardController } from "./utils.js";
+import { TOKEN, BASE_URL } from "../env.js";
 
 const User = new UserInfo({ nameSelector: config.userNameSelector, descriptionSelector: config.userJobDescriptionSelector });
 
@@ -38,7 +39,7 @@ function createCard(item, imgPopupInstance) {
 
 const cardsSection = new Section(
   {
-    items: articlesContent,
+    items: articlesContent, // Pasar los elementos del servidor
     renderer: (item) => {
       return createCard(item, PopImge);
     },
@@ -69,3 +70,25 @@ config.addNewPlaceBtn.addEventListener("click", () => {
     User.setUserInfo();
   });
 })();
+
+const getCardsFromServer = () => {
+  fetch(`${BASE_URL}cards/`).then; //
+  // lista de objetos con la información de las tarjetas
+};
+
+const borrarTarjeta = (cardId) => {
+  fetch(`${BASE_URL}cards/${cardId}`, {
+    method: "DELETE",
+  });
+};
+
+function deleteAll() {
+  // const listaIDs = () => {
+  //   return getCardsFromServer().map((card) => card._id);
+  // };
+  listaIDs.forEach((cardId) => borrarTarjeta(cardId));
+}
+
+addEventListener("click", () => {
+  borrarTarjeta(id);
+});
