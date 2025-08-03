@@ -7,12 +7,15 @@ import PopupWithForm from "./Components/PopupWithForm.js";
 import Section from "./Components/Section.js";
 import UserInfo from "./Components/UserInfo.js";
 import { articlesContent, config } from "./data.js";
-import { manageCardController } from "./utils.js";
+import { manageCardController, cardsFromServer } from "./utils.js";
 import { TOKEN, BASE_URL } from "../env.js";
 
-const User = new UserInfo({ nameSelector: config.userNameSelector, descriptionSelector: config.userJobDescriptionSelector });
+// const cards = cardsFromServer(BASE_URL, TOKEN);
 
+// console.log(cards);
 const PopImge = new PopupWithImage(config.imgPopupSelector);
+
+const User = new UserInfo({ nameSelector: config.userNameSelector, descriptionSelector: config.userJobDescriptionSelector });
 
 const UserForm = new PopupWithForm(config.popupProfileSelector, (formDetails) => {
   User.setUserInfo(formDetails);
@@ -67,28 +70,29 @@ config.addNewPlaceBtn.addEventListener("click", () => {
 
 (function setPageEventListeners() {
   window.addEventListener("load", () => {
+    console.log("Cargando usuario");
     User.setUserInfo();
   });
 })();
 
-const getCardsFromServer = () => {
-  fetch(`${BASE_URL}cards/`).then; //
-  // lista de objetos con la información de las tarjetas
-};
+// const getCardsFromServer = () => {
+//   fetch(`${BASE_URL}cards/`).then; //
+//   // lista de objetos con la información de las tarjetas
+// };
 
-const borrarTarjeta = (cardId) => {
-  fetch(`${BASE_URL}cards/${cardId}`, {
-    method: "DELETE",
-  });
-};
+// const borrarTarjeta = (cardId) => {
+//   fetch(`${BASE_URL}cards/${cardId}`, {
+//     method: "DELETE",
+//   });
+// };
 
-function deleteAll() {
-  // const listaIDs = () => {
-  //   return getCardsFromServer().map((card) => card._id);
-  // };
-  listaIDs.forEach((cardId) => borrarTarjeta(cardId));
-}
+// function deleteAll() {
+//   // const listaIDs = () => {
+//   //   return getCardsFromServer().map((card) => card._id);
+//   // };
+//   listaIDs.forEach((cardId) => borrarTarjeta(cardId));
+// }
 
-addEventListener("click", () => {
-  borrarTarjeta(id);
-});
+// addEventListener("click", () => {
+//   borrarTarjeta(id);
+// });

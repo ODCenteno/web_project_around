@@ -6,7 +6,21 @@ export default class UserInfo {
     this._navDescriptionElement = document.querySelector(descriptionSelector);
   }
 
-  loadUserFromServer() {
+  _saveUserInServer(userDetails) {
+    return fetch(`${BASE_URL}users/me`, {
+      method: "PATCH",
+      headers: {
+        authorization: TOKEN,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: userDetails.name,
+        about: userDetails.description,
+      }),
+    }).then((res) => res.json());
+  }
+
+  _loadUserFromServer() {
     return fetch(`${BASE_URL}users/me`, {
       headers: {
         authorization: TOKEN,
@@ -14,7 +28,7 @@ export default class UserInfo {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("HTTP Error: ", res.status);
+          throw new Error("HTTP Error: ", res.status, res.text());
         }
         return res.json();
       })
@@ -22,37 +36,38 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-    return this.loadUserFromServer()
+    return this._loadUserFromServer()
       .then((user) => {
-        console.log(user);
-        this._userName = localStorage.getItem("name") || user.name;
-        this._description = localStorage.getItem("about") || user.about;
-        this._avatar = user.avatar;
-        this._userId = user._id;
-        return { name: this._userName, description: this._description };
-      }
+        return user;
+      })
       .catch((error) => {
         console.error(error);
         return { name: "", description: "" };
       });
   }
 
-  _saveDetails() {
-    localStorage.setItem("name", this._userName);
-    localStorage.setItem("about", this._description);
-  }
-
   setUserInfo(userDetails) {
     if (userDetails) {
-      this._userName = userDetails.name;
-      this._description = userDetails.description;
-      this._saveDetails();
-    }
+      this._navNameElement.textContent = userDetails.name;
+      this._navDescriptionElement.textContent = userDetails.description;
 
-    return this.getUserInfo().then((userData) => {
-      this._navNameElement.textContent = userData.name;
-      this._navDescriptionElement.textContent = userData.description;
-      return userData;
-    });
+      this._saveUserInServer(userDetails)
+        .then((user) => {
+          return user;
+        })
+        .then((user) => {
+          this._userName = user.name;
+          this._description = user.about;
+          this._avatar = user.avatar;
+          this._userId = user._id;
+          return user;
+        });
+    } else {
+      return this.getUserInfo().then((userData) => {
+        this._navNameElement.textContent = userData.name;
+        this._navDescriptionElement.textContent = userData.about;
+        return userData;
+      });
+    }
   }
 }
