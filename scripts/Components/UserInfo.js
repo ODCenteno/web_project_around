@@ -1,9 +1,10 @@
 import { TOKEN, BASE_URL } from "../../env.js";
 
 export default class UserInfo {
-  constructor({ nameSelector, descriptionSelector }) {
+  constructor({ nameSelector, descriptionSelector, avatarSelector }) {
     this._navNameElement = document.querySelector(nameSelector);
     this._navDescriptionElement = document.querySelector(descriptionSelector);
+    this._navAvatar = document.querySelector(avatarSelector);
   }
 
   _saveUserInServer(userDetails) {
@@ -66,6 +67,7 @@ export default class UserInfo {
       return this.getUserInfo().then((userData) => {
         this._navNameElement.textContent = userData.name;
         this._navDescriptionElement.textContent = userData.about;
+        this._navAvatar.src = userData.avatar;
         return userData;
       });
     }

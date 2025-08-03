@@ -1,6 +1,6 @@
 class Card {
   constructor({ article, handleCardClick }, templateSelector) {
-    this._title = article.name;
+    this._title = article.name || article.title;
     this._imageUrl = article.link;
     this._imageAlt = `Image name: ${article.name}`;
     this._iconUrl = article.iconUrl || "../images/heart.svg";

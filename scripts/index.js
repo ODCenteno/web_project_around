@@ -12,7 +12,7 @@ import { TOKEN, BASE_URL } from "../env.js";
 
 const PopImge = new PopupWithImage(config.imgPopupSelector);
 
-const User = new UserInfo({ nameSelector: config.userNameSelector, descriptionSelector: config.userJobDescriptionSelector });
+const User = new UserInfo({ nameSelector: config.userNameSelector, descriptionSelector: config.userJobDescriptionSelector, avatarSelector: config.avatarSelector });
 
 const UserForm = new PopupWithForm(config.popupProfileSelector, (formDetails) => {
   User.setUserInfo(formDetails);
@@ -21,6 +21,19 @@ const UserForm = new PopupWithForm(config.popupProfileSelector, (formDetails) =>
 const PlaceForm = new PopupWithForm(config.popupPlaceSelector, (formDetails) => {
   controlAddPlaceForm(formDetails);
 });
+
+function postNewCard(serverURL, TOKEN, body) {
+  return fetch(`${serverURL}cards/`, {
+    method: "POST",
+    headers: {
+      authorization: TOKEN,
+    },
+    body: JSON.stringify(body),
+  }).then((res) => {
+    if (!res.ok) throw new Error(`Error ${res.status}`);
+    return res.json();
+  });
+}
 
 function createCard(item, imgPopupInstance) {
   const card = new Card(
@@ -37,7 +50,7 @@ function createCard(item, imgPopupInstance) {
   return card.create();
 }
 
-fetchCards(BASE_URL, TOKEN)
+const renderedCards = fetchCards(BASE_URL, TOKEN)
   .then((cardsData) => {
     const cardsSection = new Section(
       {
@@ -50,6 +63,7 @@ fetchCards(BASE_URL, TOKEN)
     );
 
     cardsSection.renderItems();
+    return cardsSection;
   })
   .catch((error) => {
     console.error("Cards loading error: ", error);
@@ -57,16 +71,34 @@ fetchCards(BASE_URL, TOKEN)
 
 function fetchCards(serverURL, TOKEN) {
   return fetch(`${serverURL}cards/`, {
-    headers: { authorization: TOKEN },
+    headers: {
+      authorization: TOKEN,
+    },
   }).then((res) => {
     if (!res.ok) throw new Error(`Error ${res.status}`);
     return res.json();
   });
 }
 
+const postCardAPI = (serverURL, TOKEN, placeContent) => {
+  return fetch(`${serverURL}cards/`, {
+    method: "POST",
+    headers: {
+      authorization: TOKEN,
+      "Content-Type": "application/json; charset=UTF-8",
+    },
+    body: JSON.stringify(placeContent),
+  }).then((res) => {
+    if (!res.ok) throw new Error(`Error ${res.status}`);
+    return res.json();
+  });
+};
+
 const controlAddPlaceForm = (formDetails) => {
+  postCardAPI(BASE_URL, TOKEN, { name: formDetails.title, link: formDetails.link });
+
   const newCardElement = createCard(formDetails, PopImge);
-  cardsSection.addItem(newCardElement);
+  renderedCards.then((section) => section.addItem(newCardElement));
 };
 
 config.editProfileBtnElement.addEventListener("click", () => {

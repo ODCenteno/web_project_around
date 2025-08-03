@@ -48,6 +48,7 @@ export const config = {
   placeDetails: {},
   userNameSelector: ".nav__name",
   userJobDescriptionSelector: ".nav__job-title",
+  avatarSelector: ".nav__avatar",
   cardsSectionSelector: "#articles",
   cardTemplateSelector: "#card-template",
   formSelector: ".popup__form",

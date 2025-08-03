@@ -15,7 +15,9 @@
 }
 
 .nav__avatar {
-  width: 100%;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
