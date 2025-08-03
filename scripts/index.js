@@ -7,12 +7,9 @@ import PopupWithForm from "./Components/PopupWithForm.js";
 import Section from "./Components/Section.js";
 import UserInfo from "./Components/UserInfo.js";
 import { articlesContent, config } from "./data.js";
-import { manageCardController, cardsFromServer } from "./utils.js";
+import { manageCardController } from "./utils.js";
 import { TOKEN, BASE_URL } from "../env.js";
 
-// const cards = cardsFromServer(BASE_URL, TOKEN);
-
-// console.log(cards);
 const PopImge = new PopupWithImage(config.imgPopupSelector);
 
 const User = new UserInfo({ nameSelector: config.userNameSelector, descriptionSelector: config.userJobDescriptionSelector });
@@ -40,16 +37,32 @@ function createCard(item, imgPopupInstance) {
   return card.create();
 }
 
-const cardsSection = new Section(
-  {
-    items: articlesContent, // Pasar los elementos del servidor
-    renderer: (item) => {
-      return createCard(item, PopImge);
-    },
-  },
-  config.cardsSectionSelector
-);
-cardsSection.renderItems();
+fetchCards(BASE_URL, TOKEN)
+  .then((cardsData) => {
+    const cardsSection = new Section(
+      {
+        items: cardsData,
+        renderer: (item) => {
+          return createCard(item, PopImge);
+        },
+      },
+      config.cardsSectionSelector
+    );
+
+    cardsSection.renderItems();
+  })
+  .catch((error) => {
+    console.error("Cards loading error: ", error);
+  });
+
+function fetchCards(serverURL, TOKEN) {
+  return fetch(`${serverURL}cards/`, {
+    headers: { authorization: TOKEN },
+  }).then((res) => {
+    if (!res.ok) throw new Error(`Error ${res.status}`);
+    return res.json();
+  });
+}
 
 const controlAddPlaceForm = (formDetails) => {
   const newCardElement = createCard(formDetails, PopImge);
@@ -70,7 +83,6 @@ config.addNewPlaceBtn.addEventListener("click", () => {
 
 (function setPageEventListeners() {
   window.addEventListener("load", () => {
-    console.log("Cargando usuario");
     User.setUserInfo();
   });
 })();

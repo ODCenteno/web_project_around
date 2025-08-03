@@ -23,17 +23,3 @@ export const manageCardController = (pointClicked) => {
   }
   return false;
 };
-
-export const cardsFromServer = (serverURL, TOKEN) => {
-  return fetch(`${serverURL}cards/`, {
-    headers: {
-      authorization: TOKEN,
-    },
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    })
-    .then((cardsData) => console.log("CARDS DATA", cardsData));
-};

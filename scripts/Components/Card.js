@@ -1,15 +1,15 @@
 class Card {
   constructor({ article, handleCardClick }, templateSelector) {
-    this._title = article.title || article["edit-name"];
-    this._imageUrl = article.imageUrl || article.imageSrc || article.link;
-    this._imageAlt = article.imageAlt || article.title || article.name;
+    this._title = article.name;
+    this._imageUrl = article.link;
+    this._imageAlt = `Image name: ${article.name}`;
     this._iconUrl = article.iconUrl || "../images/heart.svg";
     this._likedIconUrl = article.likedIconUrl || "../images/heart-liked.svg";
     this._isLiked = article.isLiked || false;
     this._handleCardClick = handleCardClick;
     this._templateSelector = templateSelector || "#card-template";
     this._id = article._id;
-    this.owner = article.owner;
+    this._owner = article.owner;
     this._cretedAt = article.createdAt;
   }
 
