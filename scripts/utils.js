@@ -10,14 +10,16 @@ const changeLikeIconState = (pointClicked, isLiked) => {
   }
 };
 
-export const manageCardController = (pointClicked) => {
+export const manageCardController = (pointClicked, PopupDeleteConfirmation) => {
   const isLikeIconClicked = pointClicked.classList[0].includes("like");
   const isLiked = "true" === pointClicked.getAttribute("data-isliked");
   const isDeleteIconClicked = pointClicked.classList[0].includes("delete");
   const isImageClicked = pointClicked.classList[0].includes("image");
 
   if (isLikeIconClicked) changeLikeIconState(pointClicked, isLiked);
-  if (isDeleteIconClicked) pointClicked.parentElement.remove();
+  if (isDeleteIconClicked) {
+    PopupDeleteConfirmation.open();
+  }
   if (isImageClicked) {
     return true;
   }

@@ -10,7 +10,7 @@
   background-color: hsla(0, 0%, 0%, 0.6);
 }
 
-.popup__form {
+.popup__form, .popup__container {
   width: 430px;
   height: 330px;
   padding: 36px;
@@ -20,6 +20,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.popup__confirmation {
+  height: 200px;
+  padding: 24px;
+  justify-content: space-around;
 }
 
 .popup__zoom-container {

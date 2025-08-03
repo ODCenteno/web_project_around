@@ -4,13 +4,15 @@ import Card from "./Components/Card.js";
 import FormValidator from "./Components/FormValidator.js";
 import PopupWithImage from "./Components/PopupWithImage.js";
 import PopupWithForm from "./Components/PopupWithForm.js";
+import PopupWithConfirmation from "./Components/PopupWithConfirmation.js";
 import Section from "./Components/Section.js";
 import UserInfo from "./Components/UserInfo.js";
-import { articlesContent, config } from "./data.js";
+import { config } from "./data.js";
 import { manageCardController } from "./utils.js";
 import { TOKEN, BASE_URL } from "../env.js";
 
 const PopImge = new PopupWithImage(config.imgPopupSelector);
+const PopupDeleteConfirmation = new PopupWithConfirmation(config.confirmPopupSelector, () => {});
 
 const User = new UserInfo({ nameSelector: config.userNameSelector, descriptionSelector: config.userJobDescriptionSelector, avatarSelector: config.avatarSelector });
 
@@ -21,6 +23,18 @@ const UserForm = new PopupWithForm(config.popupProfileSelector, (formDetails) =>
 const PlaceForm = new PopupWithForm(config.popupPlaceSelector, (formDetails) => {
   controlAddPlaceForm(formDetails);
 });
+
+function deleteCard(serverURL, TOKEN, cardId) {
+  return fetch(`${serverURL}cards/${cardId}`, {
+    method: "DELETE",
+    headers: {
+      authorization: TOKEN,
+    },
+  }).then((res) => {
+    if (!res.ok) throw new Error(`Error ${res.status}`);
+    return res.json();
+  });
+}
 
 function postNewCard(serverURL, TOKEN, body) {
   return fetch(`${serverURL}cards/`, {
@@ -40,7 +54,7 @@ function createCard(item, imgPopupInstance) {
     {
       article: item,
       handleCardClick: (pointClicked) => {
-        const isImageClicked = manageCardController(pointClicked);
+        const isImageClicked = manageCardController(pointClicked, PopupDeleteConfirmation);
         if (isImageClicked) imgPopupInstance.open(pointClicked);
       },
     },
@@ -118,25 +132,3 @@ config.addNewPlaceBtn.addEventListener("click", () => {
     User.setUserInfo();
   });
 })();
-
-// const getCardsFromServer = () => {
-//   fetch(`${BASE_URL}cards/`).then; //
-//   // lista de objetos con la información de las tarjetas
-// };
-
-// const borrarTarjeta = (cardId) => {
-//   fetch(`${BASE_URL}cards/${cardId}`, {
-//     method: "DELETE",
-//   });
-// };
-
-// function deleteAll() {
-//   // const listaIDs = () => {
-//   //   return getCardsFromServer().map((card) => card._id);
-//   // };
-//   listaIDs.forEach((cardId) => borrarTarjeta(cardId));
-// }
-
-// addEventListener("click", () => {
-//   borrarTarjeta(id);
-// });

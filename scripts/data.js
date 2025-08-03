@@ -61,6 +61,7 @@ export const config = {
   popupProfileSelector: "#edit-profile-popup",
   popupPlaceSelector: "#add-place-popup",
   popupImageSelector: "#popup__img-zoom",
+  confirmPopupSelector: "#popup__confirmation",
   popupIsVisibleClass: "popup-active",
   popupIsHiddenClass: "popup_hidden",
   popupCloseButtonSelector: ".popup__button-close",

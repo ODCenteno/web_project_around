@@ -98,6 +98,14 @@
           <figcaption class="popup__figcaption"></figcaption>
         </figure>
       </aside>
+      <aside id="popup__confirmation" class="popup popup_hidden">
+        <div id="container-delete" class="popup__container popup__confirmation">
+          <button type="reset" class="button popup__button-close" id="popup-add-place-close"></button>
+          <h2 class="popup__title">¿Estás seguro/a?</h2>
+          <button type="submit" class="button popup__button-submit" id="popup-delete-place-close">Borrar
+            tarjeta</button>
+        </div>
+      </aside>
       <template id="card-template">
         <article class="card articles__card"><img class="card__delete-icon" src="./images/delete.svg" alt="delete icon"
             id="delete">
