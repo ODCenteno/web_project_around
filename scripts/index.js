@@ -12,7 +12,12 @@ import { manageCardController } from "./utils.js";
 import { TOKEN, BASE_URL } from "../env.js";
 
 const PopImge = new PopupWithImage(config.imgPopupSelector);
-const PopupDeleteConfirmation = new PopupWithConfirmation(config.confirmPopupSelector, () => {});
+const PopupDeleteConfirmation = new PopupWithConfirmation(config.confirmPopupSelector, (cardToDelete) => {
+  const cardId = PopupDeleteConfirmation.getCardId();
+  cardToDelete.parentElement.remove();
+  deleteCard(BASE_URL, TOKEN, cardId).then((res) => console.log(res));
+  PopupDeleteConfirmation.close();
+});
 
 const User = new UserInfo({ nameSelector: config.userNameSelector, descriptionSelector: config.userJobDescriptionSelector, avatarSelector: config.avatarSelector });
 
@@ -53,8 +58,8 @@ function createCard(item, imgPopupInstance) {
   const card = new Card(
     {
       article: item,
-      handleCardClick: (pointClicked) => {
-        const isImageClicked = manageCardController(pointClicked, PopupDeleteConfirmation);
+      handleCardClick: (pointClicked, cardId) => {
+        const isImageClicked = manageCardController(pointClicked, PopupDeleteConfirmation, cardId);
         if (isImageClicked) imgPopupInstance.open(pointClicked);
       },
     },

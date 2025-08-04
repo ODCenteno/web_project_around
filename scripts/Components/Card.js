@@ -49,7 +49,7 @@ class Card {
   _setEventListeners() {
     this._cardElement.addEventListener("click", (e) => {
       const pointClicked = e.target;
-      this._handleCardClick(pointClicked);
+      this._handleCardClick(pointClicked, this._id);
     });
   }
 
