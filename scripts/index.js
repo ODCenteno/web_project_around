@@ -1,5 +1,6 @@
 "use strict";
 
+import API from "./Components/API.js";
 import Card from "./Components/Card.js";
 import FormValidator from "./Components/FormValidator.js";
 import PopupWithImage from "./Components/PopupWithImage.js";
@@ -14,8 +15,10 @@ import { TOKEN, BASE_URL } from "../env.js";
 const PopImge = new PopupWithImage(config.imgPopupSelector);
 const PopupDeleteConfirmation = new PopupWithConfirmation(config.confirmPopupSelector, (cardToDelete) => {
   const cardId = PopupDeleteConfirmation.getCardId();
-  cardToDelete.parentElement.remove();
-  deleteCard(BASE_URL, TOKEN, cardId).then((res) => console.log(res));
+  API.deleteCard(cardId).then((res) => {
+    cardToDelete.parentElement.remove();
+    console.log(res);
+  });
   PopupDeleteConfirmation.close();
 });
 
@@ -29,30 +32,9 @@ const PlaceForm = new PopupWithForm(config.popupPlaceSelector, (formDetails) => 
   controlAddPlaceForm(formDetails);
 });
 
-function deleteCard(serverURL, TOKEN, cardId) {
-  return fetch(`${serverURL}cards/${cardId}`, {
-    method: "DELETE",
-    headers: {
-      authorization: TOKEN,
-    },
-  }).then((res) => {
-    if (!res.ok) throw new Error(`Error ${res.status}`);
-    return res.json();
-  });
-}
-
-function postNewCard(serverURL, TOKEN, body) {
-  return fetch(`${serverURL}cards/`, {
-    method: "POST",
-    headers: {
-      authorization: TOKEN,
-    },
-    body: JSON.stringify(body),
-  }).then((res) => {
-    if (!res.ok) throw new Error(`Error ${res.status}`);
-    return res.json();
-  });
-}
+const postNewCard = (body) => {
+  return API.postNewCard(body);
+};
 
 function createCard(item, imgPopupInstance) {
   const card = new Card(
@@ -69,7 +51,7 @@ function createCard(item, imgPopupInstance) {
   return card.create();
 }
 
-const renderedCards = fetchCards(BASE_URL, TOKEN)
+const renderedCards = API.getCards()
   .then((cardsData) => {
     const cardsSection = new Section(
       {
@@ -88,33 +70,8 @@ const renderedCards = fetchCards(BASE_URL, TOKEN)
     console.error("Cards loading error: ", error);
   });
 
-function fetchCards(serverURL, TOKEN) {
-  return fetch(`${serverURL}cards/`, {
-    headers: {
-      authorization: TOKEN,
-    },
-  }).then((res) => {
-    if (!res.ok) throw new Error(`Error ${res.status}`);
-    return res.json();
-  });
-}
-
-const postCardAPI = (serverURL, TOKEN, placeContent) => {
-  return fetch(`${serverURL}cards/`, {
-    method: "POST",
-    headers: {
-      authorization: TOKEN,
-      "Content-Type": "application/json; charset=UTF-8",
-    },
-    body: JSON.stringify(placeContent),
-  }).then((res) => {
-    if (!res.ok) throw new Error(`Error ${res.status}`);
-    return res.json();
-  });
-};
-
 const controlAddPlaceForm = (formDetails) => {
-  postCardAPI(BASE_URL, TOKEN, { name: formDetails.title, link: formDetails.link });
+  API.postNewCard({ name: formDetails.title, link: formDetails.link });
 
   const newCardElement = createCard(formDetails, PopImge);
   renderedCards.then((section) => section.addItem(newCardElement));

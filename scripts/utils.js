@@ -16,7 +16,9 @@ export const manageCardController = (pointClicked, PopupDeleteConfirmation, card
   const isDeleteIconClicked = pointClicked.classList[0].includes("delete");
   const isImageClicked = pointClicked.classList[0].includes("image");
 
-  if (isLikeIconClicked) changeLikeIconState(pointClicked, isLiked);
+  if (isLikeIconClicked) {
+    changeLikeIconState(pointClicked, isLiked);
+  }
   if (isDeleteIconClicked) {
     PopupDeleteConfirmation.open(cardId, pointClicked);
   }
