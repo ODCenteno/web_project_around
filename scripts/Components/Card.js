@@ -5,7 +5,7 @@ class Card {
     this._imageAlt = `Image name: ${article.name}`;
     this._iconUrl = article.iconUrl || "../images/heart.svg";
     this._likedIconUrl = article.likedIconUrl || "../images/heart-liked.svg";
-    this._isLiked = article.isLiked || false;
+    this._isLiked = article.isLiked;
     this._handleCardClick = handleCardClick;
     this._templateSelector = templateSelector || "#card-template";
     this._id = article._id;
@@ -27,7 +27,7 @@ class Card {
     this._cardImage.title = this._title;
 
     const cardLikeIcon = this._cardElement.querySelector(".card__like-icon");
-    cardLikeIcon.src = this._iconUrl ?? "./images/heart.svg";
+    cardLikeIcon.src = this._isLiked ? this._likedIconUrl : this._iconUrl;
     cardLikeIcon.alt = "like icon";
     cardLikeIcon.dataset.isLiked = this._isLiked;
     cardLikeIcon.title = "Da click para marcarla o desmarcar como favorita";

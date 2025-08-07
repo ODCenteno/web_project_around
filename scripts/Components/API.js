@@ -74,7 +74,7 @@ class Api {
   }
 
   removeLike(cardId) {
-    return this.makeRequest(`/cards/${cardId}/likes`, "DELETE");
+    return this._callApi(`/cards/${cardId}/likes`, "DELETE");
   }
 }
 
