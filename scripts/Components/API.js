@@ -17,7 +17,7 @@ class Api {
     })
       .then((res) => {
         if (!res.ok) {
-          Promise.reject("Failed to get token: ", res.status);
+          Promise.reject("Failed to fetch: ", res);
         }
         return res.json();
       })
@@ -27,8 +27,30 @@ class Api {
   _generateUser() {
     return this._callApi("users/create").then((user) => {
       this._headers.authorization = user.token;
-      CSSConditionRule.log("USER Created");
+      console.log("USER Created");
     });
+  }
+
+  getUserInfo() {
+    return this._callApi("users/me")
+      .then((user) => {
+        return user;
+      })
+      .catch((error) => {
+        console.error(error);
+        return { name: "", description: "" };
+      });
+  }
+
+  saveUserDetails(userDetails) {
+    return this._callApi(`users/me`, "PATCH", {
+      name: userDetails.name,
+      about: userDetails.about,
+    });
+  }
+
+  saveAvatar(avatar) {
+    return this._callApi("users/me/avatar", "PATCH", avatar);
   }
 
   getCards() {
@@ -40,11 +62,19 @@ class Api {
   }
 
   updateUser(userId, body) {
-    return this._callApi(`user/${id}`, "PATCH", body);
+    return this._callApi(`user/${userId}`, "PATCH", body);
   }
 
   deleteCard(cardId) {
     return this._callApi(`cards/${cardId}`, "DELETE");
+  }
+
+  addLike(cardId) {
+    return this._callApi(`/cards/${cardId}/likes`, "PUT");
+  }
+
+  removeLike(cardId) {
+    return this.makeRequest(`/cards/${cardId}/likes`, "DELETE");
   }
 }
 

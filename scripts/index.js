@@ -10,7 +10,6 @@ import Section from "./Components/Section.js";
 import UserInfo from "./Components/UserInfo.js";
 import { config } from "./data.js";
 import { manageCardController } from "./utils.js";
-import { TOKEN, BASE_URL } from "../env.js";
 
 const PopImge = new PopupWithImage(config.imgPopupSelector);
 const PopupDeleteConfirmation = new PopupWithConfirmation(config.confirmPopupSelector, (cardToDelete) => {
@@ -30,6 +29,14 @@ const UserForm = new PopupWithForm(config.popupProfileSelector, (formDetails) =>
 
 const PlaceForm = new PopupWithForm(config.popupPlaceSelector, (formDetails) => {
   controlAddPlaceForm(formDetails);
+});
+
+const avatarForm = new PopupWithForm(config.avatarPopupSelector, (avatarLink) => {
+  API.saveAvatar({
+    avatar: avatarLink.link,
+  }).then((userDetails) => {
+    User.updateAvatar(userDetails);
+  });
 });
 
 const postNewCard = (body) => {
@@ -92,5 +99,7 @@ config.addNewPlaceBtn.addEventListener("click", () => {
 (function setPageEventListeners() {
   window.addEventListener("load", () => {
     User.setUserInfo();
+    const avatarElement = document.querySelector(config.avatarSelector);
+    avatarElement.addEventListener("click", () => avatarForm.open());
   });
 })();

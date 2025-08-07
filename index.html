@@ -91,6 +91,19 @@
             disabled>Guardar</button>
         </form>
       </aside>
+      <aside id="avatar-popup" class="popup popup_hidden">
+        <form id="form-avatar" class="popup__form" name="avatar" action="/" method="post" novalidate>
+          <button type="reset" class="button popup__button-close" id="popup-avatar-close"></button>
+          <h2 class="popup__title">Cambiar foto de perfil</h2>
+          <fieldset class="popup__fields">
+            <input type="text" class="popup__input" id="form-avatar-src" name="link" pattern="https://.*"
+              placeholder="Enlace a la imagen: http://..." required>
+            <span id="form-avatar-src-error" class="popup__span-error"></span>
+          </fieldset>
+          <button type="submit" class="button popup__button-submit" id="popup-button-avatar-submit"
+            disabled>Guardar</button>
+        </form>
+      </aside>
       <aside id="popup__img-zoom" class="popup popup_hidden">
         <figure class="popup__zoom-container">
           <button type="reset" class="button popup__button-close" id="popup-image-close"></button>
