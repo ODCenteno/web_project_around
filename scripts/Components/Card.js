@@ -35,7 +35,6 @@ class Card {
     const cardDeleteIcon = this._cardElement.querySelector(".card__delete-icon");
     cardDeleteIcon.src = "./images/delete.svg";
     cardDeleteIcon.alt = "Delete icon";
-    cardDeleteIcon.dataset.isLiked = this._isLiked;
     cardDeleteIcon.title = "Da click para eliminar esta tarjeta";
   }
 

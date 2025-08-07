@@ -12,7 +12,7 @@ class Api {
   _callApi(endpoint, method, body) {
     return fetch(`${this._baseUrl}${endpoint}`, {
       method: method || "GET",
-      headers: this._headers,
+      headers: this._headers.authorization ? this._headers : this._generateUser(),
       body: body ? JSON.stringify(body) : undefined,
     })
       .then((res) => {
@@ -26,7 +26,10 @@ class Api {
 
   _generateUser() {
     return this._callApi("users/create").then((user) => {
-      this._headers.authorization = user.token;
+      this._headers = {
+        authorization: user.token,
+        "Content-Type": "application/json",
+      };
       console.log("USER Created");
     });
   }
@@ -45,7 +48,7 @@ class Api {
   saveUserDetails(userDetails) {
     return this._callApi(`users/me`, "PATCH", {
       name: userDetails.name,
-      about: userDetails.about,
+      about: userDetails.description,
     });
   }
 
