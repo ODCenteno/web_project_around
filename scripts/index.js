@@ -40,10 +40,6 @@ const avatarForm = new PopupWithForm(config.avatarPopupSelector, (avatarLink) =>
   });
 });
 
-const postNewCard = (body) => {
-  return API.postNewCard(body);
-};
-
 function createCard(item, imgPopupInstance) {
   const card = new Card(
     {
@@ -79,10 +75,10 @@ const renderedCards = API.getCards()
   });
 
 const controlAddPlaceForm = (formDetails) => {
-  API.postNewCard({ name: formDetails.title, link: formDetails.link });
-
-  const newCardElement = createCard(formDetails, PopImge);
-  renderedCards.then((section) => section.addItem(newCardElement));
+  API.postNewCard({ name: formDetails.title, link: formDetails.link }).then((newCard) => {
+    const newCardElement = createCard(newCard, PopImge);
+    renderedCards.then((section) => section.addItem(newCardElement));
+  });
 };
 
 config.editProfileBtnElement.addEventListener("click", () => {

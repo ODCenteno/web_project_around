@@ -8,6 +8,7 @@ class Card {
     this._isLiked = article.isLiked;
     this._handleCardClick = handleCardClick;
     this._templateSelector = templateSelector || "#card-template";
+    console.log("article._id: ", article._id);
     this._id = article._id;
     this._owner = article.owner;
     this._cretedAt = article.createdAt;
