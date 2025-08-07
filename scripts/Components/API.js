@@ -17,7 +17,7 @@ class Api {
     })
       .then((res) => {
         if (!res.ok) {
-          Promise.reject("Failed to fetch: ", res);
+          Promise.reject("Failed to fetch: ", res.statusText);
         }
         return res.json();
       })
@@ -43,7 +43,7 @@ class Api {
   }
 
   saveUserDetails(userDetails) {
-    return this._callApi(`users/me`, "PATCH", {
+    return this._callApi("users/me", "PATCH", {
       name: userDetails.name,
       about: userDetails.about,
     });

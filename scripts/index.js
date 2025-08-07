@@ -12,6 +12,7 @@ import { config } from "./data.js";
 import { manageCardController } from "./utils.js";
 
 const PopImge = new PopupWithImage(config.imgPopupSelector);
+
 const PopupDeleteConfirmation = new PopupWithConfirmation(config.confirmPopupSelector, (cardToDelete) => {
   const cardId = PopupDeleteConfirmation.getCardId();
   API.deleteCard(cardId).then((res) => {

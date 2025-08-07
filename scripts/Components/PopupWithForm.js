@@ -4,6 +4,7 @@ export default class PopupWithForm extends Popup {
   constructor(popupSelector, handleSubmit) {
     super(popupSelector);
     this._form = this._popup.querySelector(".popup__form");
+    this._submitButtonElmt = document.querySelector(".popup__button-submit");
     this._handleSubmit = handleSubmit;
   }
 
@@ -26,6 +27,7 @@ export default class PopupWithForm extends Popup {
       e.stopImmediatePropagation();
 
       const formDetails = this._getInputValues();
+      this._submitButtonElmt.textContent = "Guardando...";
       this._handleSubmit(formDetails);
       this.close();
     });
