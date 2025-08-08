@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- CSP headers -->
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+
+  <!-- Primary Meta Tags -->
+
+  <title>Around the World</title>
+  <meta name="author" content="ODCenteno" />
+  <meta name="description" content="A solo trip around Asia, Oceania, and Europe." />
+  <meta name="title" content="Around the World" />
+  <meta name="keywords" content="html, css, javascript, blog, traveling" />
+
+  <link rel="icon" type="image/svg+xml" href="./src/images/favicon.svg">
+  <meta name="theme-color" content="#000" />
+
+  <!-- Synchronous CSS -->
+  <link rel="stylesheet" href="./src/pages/index.css">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:locale" content="es_ES" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ODCenteno Around the world">
+  <meta property="og:description" content="A Web to discover a save your best experiences">
+  <meta property="og:site_name" content="ODC Around the World">
+</head>
+
+<body>
+  <div class="page">
+    <header class="header page__header">
+      <div class="header__logo-container">
+        <img src="./src/images/logo.svg" alt="Around logo" class="header__logo">
+      </div>
+      <hr class="header__divisor">
+      <nav class="nav header__nav">
+        <div class="nav__avatar-container nav__avatar-position">
+          <img src="./src/images/odcenteno.webp" alt="Omar Daniel Photo" class="nav__avatar">
+        </div>
+        <div class="nav__container">
+          <div class="nav__name-edit">
+            <h1 class="nav__name">
+            </h1>
+            <button class="button nav__button-edit" id="edit-profile-btn"
+              title="Da Clic para modificar la información del perfil"></button>
+          </div>
+          <p class="nav__job-title">Viajero Intergaláctico</p>
+        </div>
+        <button type="button" class="button nav__button-add" title="Da clic para agregar un nuevo lugar"></button>
+      </nav>
+    </header>
+
+    <main class="main">
+      <section id="articles" class="articles">
+      </section>
+      <aside id="edit-profile-popup" class="popup popup_hidden">
+        <form id="form-profile" class="popup__form" name="edit-form" action="/" method="post" novalidate>
+          <button type="reset" class="button popup__button-close" id="popup-button-close"></button>
+          <h2 class="popup__title">Editar perfil</h2>
+          <fieldset class="popup__fields">
+            <input type="text" class="popup__input" id="popup-input-name" name="name" placeholder="Nombre" minlength="2"
+              maxlength="40" required>
+            <span id="popup-input-name-error" class="popup__span-error"></span>
+            <input type="text" class="popup__input" id="popup-input-description" name="description" minlength="2"
+              maxlength="200" placeholder="Acerca de mí" required>
+            <span id="popup-input-description-error" class="popup__span-error"></span>
+          </fieldset>
+          <button type="submit" class="button popup__button-submit" id="popup-button-profile-submit"
+            disabled>Guardar</button>
+        </form>
+      </aside>
+      <aside id="add-place-popup" class="popup popup_hidden">
+        <form id="form-place" class="popup__form" name="edit-form" action="/" method="post" novalidate>
+          <button type="reset" class="button popup__button-close" id="popup-add-place-close"></button>
+          <h2 class="popup__title">Nuevo Lugar</h2>
+          <fieldset class="popup__fields">
+            <input type="text" class="popup__input" id="popup-input-title" name="title" placeholder="Título"
+              minlength="2" maxlength="30" required>
+            <span id="popup-input-title-error" class="popup__span-error"></span>
+            <input type="text" class="popup__input" id="form-img-src" name="link" pattern="https://.*"
+              placeholder="Enlace a la imagen: http://..." required>
+            <span id="form-img-src-error" class="popup__span-error"></span>
+          </fieldset>
+          <button type="submit" class="button popup__button-submit" id="popup-button-place-submit"
+            disabled>Guardar</button>
+        </form>
+      </aside>
+      <aside id="avatar-popup" class="popup popup_hidden">
+        <form id="form-avatar" class="popup__form" name="avatar" action="/" method="post" novalidate>
+          <button type="reset" class="button popup__button-close" id="popup-avatar-close"></button>
+          <h2 class="popup__title">Cambiar foto de perfil</h2>
+          <fieldset class="popup__fields">
+            <input type="text" class="popup__input" id="form-avatar-src" name="link" pattern="https://.*"
+              placeholder="Enlace a la imagen: http://..." required>
+            <span id="form-avatar-src-error" class="popup__span-error"></span>
+          </fieldset>
+          <button type="submit" class="button popup__button-submit" id="popup-button-avatar-submit"
+            disabled>Guardar</button>
+        </form>
+      </aside>
+      <aside id="popup__img-zoom" class="popup popup_hidden">
+        <figure class="popup__zoom-container">
+          <button type="reset" class="button popup__button-close" id="popup-image-close"></button>
+          <img class="popup__image" id="zoom-img" src=" " alt=" " title=" ">
+          <figcaption class="popup__figcaption"></figcaption>
+        </figure>
+      </aside>
+      <aside id="popup__confirmation" class="popup popup_hidden">
+        <div id="container-delete" class="popup__container popup__confirmation">
+          <button type="reset" class="button popup__button-close" id="popup-add-place-close"></button>
+          <h2 class="popup__title">¿Estás seguro/a?</h2>
+          <button type="submit" class="button popup__button-submit" id="popup-delete-place-close">Borrar
+            tarjeta</button>
+        </div>
+      </aside>
+      <template id="card-template">
+        <article class="card articles__card"><img class="card__delete-icon" src="./src/images/delete.svg"
+            alt="delete icon" id="delete">
+          <picture class="card__picture"><img class="card__image" src="./src/images/dibraies.webp"
+              alt="Example of alternative description" data-orientation="horizontal"></picture>
+          <div class="card__place-info">
+            <h3 class="card__place-title">Lago di Braies</h3>
+            <div class="card__icon-container"><img class="card__like-icon" src="./src/images/heart.svg" alt="like icon">
+            </div>
+          </div>
+        </article>
+      </template>
+    </main>
+    <footer class="footer">
+      <p class="footer__copy">&copy; 2025 Around The World by <a href="http://odcenteno.com"
+          target="_blank">ODCenteno</a></p>
+    </footer>
+  </div>
+  <script src="./src/scripts/index.js" type="module"></script>
+</body>
+
+</html>
