@@ -1,17 +1,14 @@
-import { config } from "./data.js";
 import api from "./Components/API.js";
 
 const changeLikeIconState = (pointClicked, isLiked, cardId) => {
   if (isLiked) {
     api.removeLike(cardId).then((card) => {
-      console.log("Ahora ya NO me gusta", card);
-      pointClicked.src = "./images/heart.svg";
+      pointClicked.src = "./src/images/heart.svg";
       pointClicked.setAttribute("data-isLiked", "false");
     });
   } else {
     api.addLike(cardId).then((card) => {
-      console.log("Ahora me gusta", card);
-      pointClicked.src = "./images/heart-liked.svg";
+      pointClicked.src = "./src/images/heart-liked.svg";
       pointClicked.setAttribute("data-isLiked", "true");
     });
   }
