@@ -16,11 +16,13 @@
   <meta name="title" content="Around the World" />
   <meta name="keywords" content="html, css, javascript, blog, traveling" />
 
-  <link rel="icon" type="image/svg+xml" href="./src/images/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="./images/favicon.svg">
   <meta name="theme-color" content="#000" />
 
   <!-- Synchronous CSS -->
-  <link rel="stylesheet" href="./src/pages/index.css">
+  <link rel="stylesheet" href="./pages/index.css">
+
+  <script type="module" src="./env.js"></script>
 
   <!-- Open Graph / Facebook -->
   <meta property="og:locale" content="es_ES" />
@@ -34,12 +36,12 @@
   <div class="page">
     <header class="header page__header">
       <div class="header__logo-container">
-        <img src="./src/images/logo.svg" alt="Around logo" class="header__logo">
+        <img src="./images/logo.svg" alt="Around logo" class="header__logo">
       </div>
       <hr class="header__divisor">
       <nav class="nav header__nav">
         <div class="nav__avatar-container nav__avatar-position">
-          <img src="./src/images/odcenteno.webp" alt="Omar Daniel Photo" class="nav__avatar">
+          <img src="./images/odcenteno.webp" alt="Omar Daniel Photo" class="nav__avatar">
         </div>
         <div class="nav__container">
           <div class="nav__name-edit">
@@ -118,13 +120,13 @@
         </div>
       </aside>
       <template id="card-template">
-        <article class="card articles__card"><img class="card__delete-icon" src="./src/images/delete.svg"
-            alt="delete icon" id="delete">
-          <picture class="card__picture"><img class="card__image" src="./src/images/dibraies.webp"
+        <article class="card articles__card"><img class="card__delete-icon" src="./images/delete.svg" alt="delete icon"
+            id="delete">
+          <picture class="card__picture"><img class="card__image" src="./images/dibraies.webp"
               alt="Example of alternative description" data-orientation="horizontal"></picture>
           <div class="card__place-info">
             <h3 class="card__place-title">Lago di Braies</h3>
-            <div class="card__icon-container"><img class="card__like-icon" src="./src/images/heart.svg" alt="like icon">
+            <div class="card__icon-container"><img class="card__like-icon" src="./images/heart.svg" alt="like icon">
             </div>
           </div>
         </article>
@@ -135,7 +137,7 @@
           target="_blank">ODCenteno</a></p>
     </footer>
   </div>
-  <script src="./src/scripts/index.js" type="module"></script>
+  <script src="./scripts/index.js" type="module"></script>
 </body>
 
 </html>
