@@ -11,12 +11,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Generate config file
+      - name: Copy project
         run: |
-          mkdir -p dist
-          echo "const BASE_URL = '${{ secrets.BASE_URL }}';" > dist/env.js
-          echo "const TOKEN = '${{ secrets.INITIAL_TOKEN }}';" >> dist/env.js
-          echo "export { BASE_URL, INITIAL_TOKEN };" >> dist/env.js
+        cp -r src/* dist/
+      - name: Generate config file
+        env:
+            BASE_URL: ${{ secrets.BASE_URL }}
+            TOKEN: ${{ secrets.INITIAL_TOKEN }}
+        run: |
+          echo "const BASE_URL = '$BASE_URL';" > dist/env.js
+          echo "const TOKEN = '$TOKEN';" >> dist/env.js
+          echo "export { BASE_URL, TOKEN };" >> dist/env.js
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
