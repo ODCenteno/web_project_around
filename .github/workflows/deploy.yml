@@ -13,7 +13,7 @@ jobs:
 
       - name: Copy project
         run: |
-        cp -r src/* dist/
+          cp -r src/* dist/
       - name: Generate config file
         env:
             BASE_URL: ${{ secrets.BASE_URL }}
