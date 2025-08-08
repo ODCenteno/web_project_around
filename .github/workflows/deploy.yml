@@ -14,7 +14,7 @@ jobs:
       - name: Generate config file
         run: |
           echo "const BASE_URL = '${{ secrets.BASE_URL }}';" > src/env.js
-          echo "const TOKEN = '${{ secrets.INITIAL_TOKEN }}';" >> js/config.js
+          echo "const TOKEN = '${{ secrets.INITIAL_TOKEN }}';" >> src/env.js
           echo "export { BASE_URL, INITIAL_TOKEN };" >> src/env.js
 
       - name: Deploy to GitHub Pages
