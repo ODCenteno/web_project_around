@@ -19,7 +19,6 @@ const PopupDeleteConfirmation = new PopupWithConfirmation(config.confirmPopupSel
   const cardId = PopupDeleteConfirmation.getCardId();
   API.deleteCard(cardId).then((res) => {
     cardToDelete.parentElement.remove();
-    console.log(res);
   });
   PopupDeleteConfirmation.close();
 });
