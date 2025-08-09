@@ -15,7 +15,8 @@ jobs:
             BASE_URL: ${{ secrets.BASE_URL }}
             TOKEN: ${{ secrets.INITIAL_TOKEN }}
         run: |
-          touch env.js
+          touch example.js
+          echo "console.log('Que perro oso');" > src/oso.js
           echo "const BASE_URL = '$BASE_URL';" > env.js
           echo "const TOKEN = '$TOKEN';" >> env.js
           echo "export { BASE_URL, TOKEN };" >> env.js
