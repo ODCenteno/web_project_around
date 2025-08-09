@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [dev]
+    branches: [main]
 
 jobs:
   deploy:
@@ -10,28 +10,18 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      - name: modify import path for deployment
-        run: |
-          sed -i 's|../../env.js|../../../dist/env.js|g' ./src/scripts/Components/API.js
-          sed -i 's|./src/|./dist/|g' ./index.html
-      - name: Prepare dist folder
-        run: mkdir -p dist
-      - name: Copy project
-        run: |
-          cp -r src/* dist/
-      - name: Generate config file
+      - name: Generate env file
         env:
             BASE_URL: ${{ secrets.BASE_URL }}
             TOKEN: ${{ secrets.INITIAL_TOKEN }}
         run: |
-          echo "const BASE_URL = '$BASE_URL';" > dist/env.js
-          echo "const TOKEN = '$TOKEN';" >> dist/env.js
-          echo "export { BASE_URL, TOKEN };" >> dist/env.js
+          echo "const BASE_URL = '$BASE_URL';" > src/env.js
+          echo "const TOKEN = '$TOKEN';" >> src/env.js
+          echo "export { BASE_URL, TOKEN };" >> src/env.js
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: ./
           keep_files: true
