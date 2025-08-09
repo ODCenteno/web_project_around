@@ -1,4 +1,4 @@
-import { BASE_URL, TOKEN } from "./env.js";
+import { BASE_URL, TOKEN } from "../../../env.js";
 
 class Api {
   static instance = null;
