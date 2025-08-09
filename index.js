@@ -11,8 +11,6 @@ import UserInfo from "./src/scripts/Components/UserInfo.js";
 import { config } from "./src/scripts/data.js";
 import { manageCardController } from "./src/scripts/utils.js";
 
-API._generateUser();
-
 const PopImge = new PopupWithImage(config.imgPopupSelector);
 
 const PopupDeleteConfirmation = new PopupWithConfirmation(config.confirmPopupSelector, (cardToDelete) => {

@@ -1,73 +1,48 @@
 import { BASE_URL, TOKEN } from "../../../env.js";
 
 class Api {
-  static instance = null;
   constructor(apiDetails) {
-    if (Api.instance) {
-      return Api.instance;
-    }
     this._baseUrl = apiDetails.baseUrl;
     this._headers = apiDetails.headers;
-    this._initialized = false;
-    this._initializationPromise = null;
-
-    if (!this._headers.authorization) {
-      this._generateUser();
-    } else {
-      this._initialized = true;
-      this._initializationPromise = Promise.resolve();
-    }
-    Api.instance = this;
   }
 
   _callApi(endpoint, method, body) {
-    const execution = this._initialized ? Promise.resolve() : this._generateUser();
-
-    return execution.then(() => {
-      return fetch(`${this._baseUrl}${endpoint}`, {
-        method: method || "GET",
-        headers: this._headers,
-        body: body ? JSON.stringify(body) : undefined,
-      })
-        .then((res) => {
-          if (!res.ok) {
-            Promise.reject("Failed to fetch: ", res.statusText);
-          }
-          return res.json();
-        })
-        .catch((err) => console.error(err));
-    });
-  }
-
-  _generateUser() {
-    return fetch(`${BASE_URL}users/create`)
+    return fetch(`${this._baseUrl}${endpoint}`, {
+      method: method || "GET",
+      headers: this._headers,
+      body: body ? JSON.stringify(body) : undefined,
+    })
       .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          throw new Error("Error getting User information", res.status);
+        if (!res.ok) {
+          Promise.reject("Failed to fetch: ", res.statusText);
         }
+        return res.json();
       })
-      .then((user) => {
-        this._headers = {
-          authorization: user.token,
-          "Content-Type": "application/json",
-        };
-        localStorage.setItem("apiToken", user.token);
-        return user;
-      })
-      .catch((error) => {
-        console.error("Error al crear usuario:", error);
-        throw error;
-      });
+      .catch((err) => console.error(err));
   }
 
-  static getInstance(options) {
-    if (!Api.instance) {
-      Api.instance = new Api(options);
-    }
-    return Api.instance;
-  }
+  // _generateUser() {
+  //   return fetch(`${this._baseUrl}users/create`)
+  //     .then((res) => {
+  //       if (res.ok) {
+  //         return res.json();
+  //       } else {
+  //         throw new Error("Error getting User information", res.status);
+  //       }
+  //     })
+  //     .then((user) => {
+  //       this._headers = {
+  //         authorization: user.token,
+  //         "Content-Type": "application/json",
+  //       };
+  //       localStorage.setItem("apiToken", user.token);
+  //       return user;
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error al crear usuario:", error);
+  //       throw error;
+  //     });
+  // }
 
   getUserInfo() {
     return this._callApi("users/me")
@@ -116,10 +91,10 @@ class Api {
   }
 }
 
-const api = Api.getInstance({
+const api = new Api({
   baseUrl: BASE_URL,
   headers: {
-    authorization: localStorage.getItem("apiToken") || TOKEN,
+    authorization: TOKEN,
     "Content-Type": "application/json",
   },
 });
