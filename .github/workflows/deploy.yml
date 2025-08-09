@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [dev]
 
 jobs:
   deploy:
@@ -15,10 +15,10 @@ jobs:
             BASE_URL: ${{ secrets.BASE_URL }}
             TOKEN: ${{ secrets.INITIAL_TOKEN }}
         run: |
-          touch ./env.js
-          echo "const BASE_URL = '$BASE_URL';" > ./env.js
-          echo "const TOKEN = '$TOKEN';" >> ./env.js
-          echo "export { BASE_URL, TOKEN };" >> ./env.js
+          touch env.js
+          echo "const BASE_URL = '$BASE_URL';" > env.js
+          echo "const TOKEN = '$TOKEN';" >> env.js
+          echo "export { BASE_URL, TOKEN };" >> env.js
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
