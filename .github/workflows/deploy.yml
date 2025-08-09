@@ -10,12 +10,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Ositos
+        run: |
+          touch example.js env.js ./src/env.js
       - name: Generate env file
         env:
             BASE_URL: ${{ secrets.BASE_URL }}
             TOKEN: ${{ secrets.INITIAL_TOKEN }}
         run: |
-          touch example.js
           echo "console.log('Que perro oso');" > ./src/oso.js
           echo "const BASE_URL = '$BASE_URL';" > env.js
           echo "const TOKEN = '$TOKEN';" >> env.js
