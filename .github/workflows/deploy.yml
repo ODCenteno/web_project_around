@@ -10,6 +10,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: modify import path for deployment
+        run: |
+          sed -i 's|../../env.js|../../../dist/env.js|g' ./src/scripts/Components/API.js
       - name: Prepare dist folder
         run: mkdir -p dist
       - name: Copy project

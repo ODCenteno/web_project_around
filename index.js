@@ -1,15 +1,15 @@
 "use strict";
 
-import API from "./Components/API.js";
-import Card from "./Components/Card.js";
-import FormValidator from "./Components/FormValidator.js";
-import PopupWithImage from "./Components/PopupWithImage.js";
-import PopupWithForm from "./Components/PopupWithForm.js";
-import PopupWithConfirmation from "./Components/PopupWithConfirmation.js";
-import Section from "./Components/Section.js";
-import UserInfo from "./Components/UserInfo.js";
-import { config } from "./data.js";
-import { manageCardController } from "./utils.js";
+import API from "./src/scripts/Components/API.js";
+import Card from "./src/scripts/Components/Card.js";
+import FormValidator from "./src/scripts/Components/FormValidator.js";
+import PopupWithImage from "./src/scripts/Components/PopupWithImage.js";
+import PopupWithForm from "./src/scripts/Components/PopupWithForm.js";
+import PopupWithConfirmation from "./src/scripts/Components/PopupWithConfirmation.js";
+import Section from "./src/scripts/Components/Section.js";
+import UserInfo from "./src/scripts/Components/UserInfo.js";
+import { config } from "./src/scripts/data.js";
+import { manageCardController } from "./src/scripts/utils.js";
 
 API._generateUser();
 
