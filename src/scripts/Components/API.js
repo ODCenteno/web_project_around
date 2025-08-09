@@ -1,4 +1,4 @@
-import { BASE_URL, TOKEN } from "../../../env.js";
+import { BASE_URL, TOKEN } from "../../env.js";
 
 class Api {
   constructor(apiDetails) {
@@ -20,29 +20,6 @@ class Api {
       })
       .catch((err) => console.error(err));
   }
-
-  // _generateUser() {
-  //   return fetch(`${this._baseUrl}users/create`)
-  //     .then((res) => {
-  //       if (res.ok) {
-  //         return res.json();
-  //       } else {
-  //         throw new Error("Error getting User information", res.status);
-  //       }
-  //     })
-  //     .then((user) => {
-  //       this._headers = {
-  //         authorization: user.token,
-  //         "Content-Type": "application/json",
-  //       };
-  //       localStorage.setItem("apiToken", user.token);
-  //       return user;
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error al crear usuario:", error);
-  //       throw error;
-  //     });
-  // }
 
   getUserInfo() {
     return this._callApi("users/me")

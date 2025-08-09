@@ -3,8 +3,8 @@ class Card {
     this._title = article.name || article.title;
     this._imageUrl = article.link;
     this._imageAlt = `Image name: ${article.name}`;
-    this._iconUrl = article.iconUrl || "./src/images/heart.svg";
-    this._likedIconUrl = article.likedIconUrl || "./src/images/heart-liked.svg";
+    this._iconUrl = article.iconUrl || "../../images/heart.svg";
+    this._likedIconUrl = article.likedIconUrl || "../../images/heart-liked.svg";
     this._isLiked = article.isLiked;
     this._handleCardClick = handleCardClick;
     this._templateSelector = templateSelector || "#card-template";
@@ -33,7 +33,7 @@ class Card {
     cardLikeIcon.title = "Da click para marcarla o desmarcar como favorita";
 
     const cardDeleteIcon = this._cardElement.querySelector(".card__delete-icon");
-    cardDeleteIcon.src = "./src/images/delete.svg";
+    cardDeleteIcon.src = "../../images/delete.svg";
     cardDeleteIcon.alt = "Delete icon";
     cardDeleteIcon.title = "Da click para eliminar esta tarjeta";
   }

@@ -1,15 +1,15 @@
 "use strict";
 
-import API from "./src/scripts/Components/API.js";
-import Card from "./src/scripts/Components/Card.js";
-import FormValidator from "./src/scripts/Components/FormValidator.js";
-import PopupWithImage from "./src/scripts/Components/PopupWithImage.js";
-import PopupWithForm from "./src/scripts/Components/PopupWithForm.js";
-import PopupWithConfirmation from "./src/scripts/Components/PopupWithConfirmation.js";
-import Section from "./src/scripts/Components/Section.js";
-import UserInfo from "./src/scripts/Components/UserInfo.js";
-import { config } from "./src/scripts/data.js";
-import { manageCardController } from "./src/scripts/utils.js";
+import API from "./scripts/Components/API.js";
+import Card from "./scripts/Components/Card.js";
+import FormValidator from "./scripts/Components/FormValidator.js";
+import PopupWithImage from "./scripts/Components/PopupWithImage.js";
+import PopupWithForm from "./scripts/Components/PopupWithForm.js";
+import PopupWithConfirmation from "./scripts/Components/PopupWithConfirmation.js";
+import Section from "./scripts/Components/Section.js";
+import UserInfo from "./scripts/Components/UserInfo.js";
+import { config } from "./scripts/data.js";
+import { manageCardController } from "./scripts/utils.js";
 
 const PopImge = new PopupWithImage(config.imgPopupSelector);
 
